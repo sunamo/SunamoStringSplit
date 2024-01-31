@@ -1,6 +1,3 @@
-using SunamoI18N.Values;
-using SunamoStringSubstring;
-
 namespace SunamoStringSplit;
 
 
@@ -46,11 +43,11 @@ public partial class SHSplit : SHData
 
         for (int i = bm.Count - 1; i >= 0; i--)
         {
-            (before, after) = SH.GetPartsByLocationNoOutInt(before, bm[i]);
+            (before, after) = SHSH.GetPartsByLocationNoOutInt(before, bm[i]);
             d.Insert(0, after);
         }
 
-        (before, after) = SH.GetPartsByLocationNoOutInt(before, bm[0]);
+        (before, after) = SHSH.GetPartsByLocationNoOutInt(before, bm[0]);
         d.Insert(0, before);
         d.Reverse();
         return d;
@@ -327,10 +324,12 @@ public partial class SHSplit : SHData
         List<string> r = null;
         if (removeEmpty)
         {
+            //r = s.Split(AllCharsSE.whiteSpacesChars.ToArray()).ToList();
             r = SplitCharMore(s, AllCharsSE.whiteSpacesChars.ToArray()).ToList();
         }
         else
         {
+            //r = s.Split(AllCharsSE.whiteSpacesChars.ToArray(), StringSplitOptions.None).ToList();
             r = SplitNone(s, SunamoValues.AllStrings.whiteSpacesChars.ToArray()).ToList();
         }
 
@@ -573,7 +572,7 @@ public partial class SHSplit : SHData
         List<int> indexyDelimiteru = new List<int>();
         foreach (var item in deli)
         {
-            indexyDelimiteru.AddRange(SH.ReturnOccurencesOfString(what, item.ToString()));
+            indexyDelimiteru.AddRange(SHSH.ReturnOccurencesOfString(what, item.ToString()));
         }
         //indexyDelimiteru.OrderBy(d => d);
         indexyDelimiteru.Sort();
@@ -634,7 +633,7 @@ public partial class SHSplit : SHData
     private static bool IsEndOfSentence(int dxDot, string s1, out string delimitingChars)
     {
         delimitingChars = null;
-        var s = SHSubstring.SubstringIfAvailableStart(s1, dxDot);
+        var s = s1.Substring(dxDot);
         var c0 = s[0];
         char c1, c2;
         c1 = '@';
@@ -645,7 +644,7 @@ public partial class SHSplit : SHData
         }
         else
         {
-            delimitingChars = SHSubstring.SubstringIfAvailableStart(s, 0);
+            delimitingChars = s.Substring(0);
             Result = true;
         }
         if (s.Length > 2)
@@ -689,7 +688,7 @@ public partial class SHSplit : SHData
             var f = s1.Length;
             if (f > maxChars)
             {
-                var dxDots = SH.ReturnOccurencesOfString(s1, AllStringsSE.dot);
+                var dxDots = SHSH.ReturnOccurencesOfString(s1, AllStringsSE.dot);
                 int i = 0;
                 int dx = 0;
                 int alreadyProcessed = 0;
@@ -713,7 +712,7 @@ public partial class SHSplit : SHData
                                     // Může mi to občas přetáhnout limit 250 znaků ale furt je to lepší než mít na začátku rok
                                     var ddx = dxDots[i - 1] + 1;
                                     ddx -= alreadyTrimmed;
-                                    (before, after) = SH.GetPartsByLocationNoOutInt(s1, ddx);
+                                    (before, after) = SHSH.GetPartsByLocationNoOutInt(s1, ddx);
                                     after = after.Trim();
                                     if (after == string.Empty)
                                     {
@@ -753,8 +752,8 @@ public partial class SHSplit : SHData
                                     var ls = d[index];
                                     if (d1)
                                     {
-                                        var bC = SH.OccurencesOfStringIn(before, sess.i18n(XlfKeys.ThisParagraphIsLongerThan500Characters) + ".");
-                                        var aC = SH.OccurencesOfStringIn(after, sess.i18n(XlfKeys.ThisParagraphIsLongerThan500Characters) + ".");
+                                        var bC = SHSH.OccurencesOfStringIn(before, sess.i18n(XlfKeys.ThisParagraphIsLongerThan500Characters) + ".");
+                                        var aC = SHSH.OccurencesOfStringIn(after, sess.i18n(XlfKeys.ThisParagraphIsLongerThan500Characters) + ".");
                                         ////DebugLogger.Instance.WriteLine("bC", bC);
                                         ////DebugLogger.Instance.WriteLine("aC", aC);
                                     }

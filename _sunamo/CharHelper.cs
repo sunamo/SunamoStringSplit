@@ -1,8 +1,8 @@
-using SunamoChar.Enums;
+//using SunamoChar.Enums;
 
-namespace SunamoStringSplit._sunamo;
+//namespace SunamoStringSplit._sunamo;
 
-internal class CharHelper
-{
-    internal static Func<UnicodeChars, char, bool> IsUnicodeChar;
-}
+//public class CharHelper
+//{
+//    public static Func<UnicodeChars, char, bool> IsUnicodeChar;
+//}

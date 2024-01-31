@@ -3,7 +3,6 @@ global using SunamoExceptions.InSunamoIsDerivedFrom;
 global using SunamoExceptions.OnlyInSE;
 global using SunamoExtensions;
 global using SunamoStringData;
-global using SunamoStringSplit._sunamo;
 global using SunamoValues;
 global using SunamoValues.Values;
 global using System;
