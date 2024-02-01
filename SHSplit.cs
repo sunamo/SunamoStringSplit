@@ -1,4 +1,7 @@
+
 namespace SunamoStringSplit;
+using SunamoStringSplit._sunamo;
+
 
 
 
@@ -101,10 +104,10 @@ public partial class SHSplit : SHData
     {
         if (deli == null || deli.Count() == 0)
         {
-            ThrowEx.Custom(sess.i18n(XlfKeys.NoDelimiterDetermined));
+            throw new Exception("NoDelimiterDetermined");
         }
         //var ie = CA.OneElementCollectionToMulti(deli);
-        //var deli3 = CA.ToListStringIEnumerable2(ie);
+        //var deli3 = new List<string>IEnumerable2(ie);
         var result = text.Split(deli, stringSplitOptions).ToList();
         CASE.Trim(result);
         if (stringSplitOptions == StringSplitOptions.RemoveEmptyEntries)
@@ -192,7 +195,7 @@ public partial class SHSplit : SHData
         int remain = sl % c;
         if (remain != 0)
         {
-            ThrowEx.Custom(sess.i18n(XlfKeys.NumbersOfLetters) + " " + s + " is not dividable with " + c);
+            throw new Exception("NumbersOfLetters" + " " + s + " is not dividable with " + c);
         }
 
         List<string> ls = new List<string>(c);
@@ -579,7 +582,7 @@ public partial class SHSplit : SHData
         var s = SHSplit.SplitChar(what, deli);
         if (s.Count < parts)
         {
-            //ThrowEx.Custom("");
+            //throw new Exception("");
             if (s.Count > 0)
             {
                 List<string> vr2 = new List<string>();
@@ -676,7 +679,7 @@ public partial class SHSplit : SHData
         foreach (var item in parts)
         {
             ThrowEx.NotImplementedMethod();
-            //d.Add(CA.ToListString(item));
+            //d.Add(new List<string>(item));
         }
         var index = -1;
         foreach (var item in d)
@@ -752,8 +755,8 @@ public partial class SHSplit : SHData
                                     var ls = d[index];
                                     if (d1)
                                     {
-                                        var bC = SHSH.OccurencesOfStringIn(before, sess.i18n(XlfKeys.ThisParagraphIsLongerThan500Characters) + ".");
-                                        var aC = SHSH.OccurencesOfStringIn(after, sess.i18n(XlfKeys.ThisParagraphIsLongerThan500Characters) + ".");
+                                        var bC = SHSH.OccurencesOfStringIn(before, "ThisParagraphIsLongerThan500Characters" + ".");
+                                        var aC = SHSH.OccurencesOfStringIn(after, "ThisParagraphIsLongerThan500Characters" + ".");
                                         ////DebugLogger.Instance.WriteLine("bC", bC);
                                         ////DebugLogger.Instance.WriteLine("aC", aC);
                                     }
