@@ -691,7 +691,7 @@ public partial class SHSplit : SHData
             var f = s1.Length;
             if (f > maxChars)
             {
-                var dxDots = SHSH.ReturnOccurencesOfString(s1, AllStringsSE.dot);
+                var dxDots = SHSH.ReturnOccurencesOfString(s1, AllStrings.dot);
                 int i = 0;
                 int dx = 0;
                 int alreadyProcessed = 0;
