@@ -68,7 +68,7 @@ public partial class SHSplit : SHData
     //}
 
     ///// <summary>
-    /////     Nemůže to být string[], protože jak předávám třeba AllCharsSE.whiteSpacesChars tak mi to z List
+    /////     Nemůže to být string[], protože jak předávám třeba AllChars.whiteSpacesChars tak mi to z List
     /////     <char>
     /////         udělá Object[]<List
     /////         <char>
@@ -327,12 +327,12 @@ public partial class SHSplit : SHData
         List<string> r = null;
         if (removeEmpty)
         {
-            //r = s.Split(AllCharsSE.whiteSpacesChars.ToArray()).ToList();
-            r = SplitCharMore(s, AllCharsSE.whiteSpacesChars.ToArray()).ToList();
+            //r = s.Split(AllChars.whiteSpacesChars.ToArray()).ToList();
+            r = SplitCharMore(s, AllChars.whiteSpacesChars.ToArray()).ToList();
         }
         else
         {
-            //r = s.Split(AllCharsSE.whiteSpacesChars.ToArray(), StringSplitOptions.None).ToList();
+            //r = s.Split(AllChars.whiteSpacesChars.ToArray(), StringSplitOptions.None).ToList();
             r = SplitNone(s, SunamoValues.AllStrings.whiteSpacesChars.ToArray()).ToList();
         }
 
@@ -659,7 +659,7 @@ public partial class SHSplit : SHData
             delimitingChars = s.Substring(1);
             Result = true;
         }
-        if (c1 == AllCharsSE.space && char.IsUpper(c2))
+        if (c1 == AllChars.space && char.IsUpper(c2))
         {
             delimitingChars = string.Join(string.Empty, c0, c1, c2);
             Result = true;
