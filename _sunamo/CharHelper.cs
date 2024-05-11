@@ -1,4 +1,4 @@
-namespace SunamoStringSplit._sunamo;
+namespace SunamoStringSplit;
 
 //using SunamoChar.Enums;
 
