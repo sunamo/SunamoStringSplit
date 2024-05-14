@@ -22,6 +22,12 @@
     <Compile Include="..\SunamoValues\AllChars.cs" Link="_linked\SunamoValues\AllChars.cs" />
     <Compile Include="..\SunamoExceptions\OnlyInSE\Types.cs" Link="_linked\SunamoExceptions\OnlyInSE\Types.cs" />
     <Compile Include="..\SunamoXlfKeys\XlfKeys.cs" Link="_linked\SunamoXlfKeys\XlfKeys.cs" />
+    <Compile Include="..\SunamoStringData\SHData.cs" Link="_linked\SunamoStringData\SHData.cs" />
+    <Compile Include="..\SunamoStringShared\SHSH.cs" Link="_linked\SunamoStringShared\SHSH.cs" />
+    <Compile Include="..\SunamoExceptions\InSunamoIsDerivedFrom\CASE.cs" Link="_linked\SunamoExceptions\InSunamoIsDerivedFrom\CASE.cs" />
+    <Compile Include="..\SunamoParsing\Parse.cs" Link="_linked\SunamoParsing\Parse.cs" />
+    <Compile Include="..\SunamoFubuCsProjFile\_NotMine\None.cs" Link="_linked\SunamoFubuCsProjFile\_NotMine\None.cs" />
+    <Compile Include="..\SunamoExceptions\SHSE.cs" Link="_linked\SunamoExceptions\SHSE.cs" />
   </ItemGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DefineConstants>$(DefineConstants);ASYNC;SunamoStringSplit</DefineConstants>
