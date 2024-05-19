@@ -1,5 +1,11 @@
 
-namespace SunamoStringSplit;
+namespace
+#if SunamoDevCode
+SunamoDevCode
+#else
+SunamoStringSplit
+#endif
+;
 
 
 
@@ -333,7 +339,7 @@ public partial class SHSplit : SHData
         else
         {
             //r = s.Split(AllChars.whiteSpacesChars.ToArray(), StringSplitOptions.None).ToList();
-            r = SplitNone(s, SunamoValues.AllStrings.whiteSpacesChars.ToArray()).ToList();
+            r = SplitNone(s, AllStrings.whiteSpacesChars.ToArray()).ToList();
         }
 
         return r;
@@ -430,7 +436,7 @@ public partial class SHSplit : SHData
         if (input.Contains(Consts.transformTo))
         {
 
-            var lines = SHSE.GetLines(input);
+            var lines = SHGetLines.GetLines(input);
 
             lines = lines.ConvertAll(d => d.Trim());
 
@@ -454,7 +460,7 @@ public partial class SHSplit : SHData
     public static Tuple<List<string>, List<string>> SplitFromReplaceManyFormatList(string input)
     {
         var t = SplitFromReplaceManyFormat(input);
-        return new Tuple<List<string>, List<string>>(SHSE.GetLines(t.Item1), SHSE.GetLines(t.Item2));
+        return new Tuple<List<string>, List<string>>(SHGetLines.GetLines(t.Item1), SHGetLines.GetLines(t.Item2));
     }
 
     /// <summary>
