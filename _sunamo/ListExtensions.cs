@@ -1,10 +1,10 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SunamoStringSplit._sunamo;
+namespace SunamoStringSplit;
 internal static class ListExtensions
 {
     public static List<T> AddOrSet<T>(this IList<T> list, int dx, T item)
