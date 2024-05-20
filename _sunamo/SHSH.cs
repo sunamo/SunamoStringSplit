@@ -1,6 +1,6 @@
 namespace SunamoStringSplit;
 
-//namespace SunamoStringSplit._sunamo;
+//namespace SunamoStringSplit;
 internal class SHSH
 {
     internal static int OccurencesOfStringIn(string source, string p_2)
