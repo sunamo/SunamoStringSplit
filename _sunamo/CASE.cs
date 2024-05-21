@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 namespace SunamoStringSplit;
 internal class CASE
 {
-    internal static void Trim(List<string> result)
+    public static List<string> Trim(List<string> l)
     {
-        throw new NotImplementedException();
+        for (var i = 0; i < l.Count; i++) l[i] = l[i].Trim();
+
+        return l;
     }
 }

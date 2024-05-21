@@ -23,6 +23,7 @@
     <Compile Include="..\SunamoStringData\SHData.cs" Link="_linked\SunamoStringData\SHData.cs" />
     <Compile Include="..\SunamoExceptions\SHSE.cs" Link="_linked\SunamoExceptions\SHSE.cs" />
     <Compile Include="..\SunamoStringGetLines\SHGetLines.cs" Link="_linked\SunamoStringGetLines\SHGetLines.cs" />
+    <Compile Include="..\SunamoXlfKeys\XlfKeys.cs" Link="_linked\SunamoXlfKeys\XlfKeys.cs" />
   </ItemGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DefineConstants>$(DefineConstants);ASYNC;SunamoStringSplit</DefineConstants>

@@ -5,7 +5,7 @@ global using System.Text;
 
 
 
-global using SunamoStringSplit._sunamo;
+global using SunamoStringSplit;
 global using System.Data;
 global using System.Text.RegularExpressions;
 
