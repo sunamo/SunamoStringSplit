@@ -1,9 +1,9 @@
 namespace SunamoStringSplit;
 
 
-internal class SHGetLines
+public class SHGetLines
 {
-    internal static List<string> GetLines(string p)
+    public static List<string> GetLines(string p)
     {
         List<string> vr = new List<string>();
         StringReader sr = new StringReader(p);
