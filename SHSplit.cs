@@ -1,16 +1,3 @@
-namespace
-#if SunamoDevCode
-SunamoDevCode
-#elif SunamoGetFiles
-SunamoGetFiles
-#elif SunamoString
-SunamoString
-#elif SunamoWikipedia
-SunamoWikipedia
-#else
-SunamoStringSplit
-#endif
-;
 public partial class SHSplit : SHData
 {
     public static List<string> SplitList(string parametry, List<string> deli)
