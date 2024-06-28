@@ -1,21 +1,21 @@
 namespace SunamoStringSplit;
 
 //namespace SunamoStringSplit;
-public class SHSH
+internal class SHSH
 {
-    public static int OccurencesOfStringIn(string source, string p_2)
+    internal static int OccurencesOfStringIn(string source, string p_2)
     {
         return source.Split(new string[] { p_2 }, StringSplitOptions.None).Length - 1;
     }
 
-    //    public static Func<string, string, List<int>> ReturnOccurencesOfString;
-    //    //public static Func<string, char, (string, string)> GetPartsByLocationNoOut;
-    //    public static Func<string, int, (string, string)> GetPartsByLocationNoOutInt;
-    //    //public static Func<string, string, string, string> ReplaceOnce;
-    //    public static Func<string, string, int> OccurencesOfStringIn;
-    //    //public static Func<string, int, string> SubstringIfAvailableStart;
+    //    internal static Func<string, string, List<int>> ReturnOccurencesOfString;
+    //    //internal static Func<string, char, (string, string)> GetPartsByLocationNoOut;
+    //    internal static Func<string, int, (string, string)> GetPartsByLocationNoOutInt;
+    //    //internal static Func<string, string, string, string> ReplaceOnce;
+    //    internal static Func<string, string, int> OccurencesOfStringIn;
+    //    //internal static Func<string, int, string> SubstringIfAvailableStart;
 
-    public static void GetPartsByLocation(out string pred, out string za, string text, int pozice)
+    internal static void GetPartsByLocation(out string pred, out string za, string text, int pozice)
     {
         if (pozice == -1)
         {
@@ -36,13 +36,13 @@ public class SHSH
         }
     }
 
-    public static (string, string) GetPartsByLocationNoOutInt(string text, int pozice)
+    internal static (string, string) GetPartsByLocationNoOutInt(string text, int pozice)
     {
         string pred, za;
         GetPartsByLocation(out pred, out za, text, pozice);
         return (pred, za);
     }
-    public static List<int> ReturnOccurencesOfString(string vcem, string co)
+    internal static List<int> ReturnOccurencesOfString(string vcem, string co)
     {
         //vcem = NormalizeString(vcem);
         List<int> Results = new List<int>();

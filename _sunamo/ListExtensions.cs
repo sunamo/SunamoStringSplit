@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace SunamoStringSplit;
-public static class ListExtensions
+internal static class ListExtensions
 {
-    public static List<T> AddOrSet<T>(this IList<T> list, int dx, T item)
+    internal static List<T> AddOrSet<T>(this IList<T> list, int dx, T item)
     {
         if (list.Count > dx)
         {
