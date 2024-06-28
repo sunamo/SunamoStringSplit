@@ -1,3 +1,5 @@
+
+namespace SunamoStringSplit;
 using System.Diagnostics;
 using System.Text;
 

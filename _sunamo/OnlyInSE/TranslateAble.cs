@@ -1,3 +1,5 @@
+
+namespace SunamoStringSplit;
 public class TranslateAble
 {
     
