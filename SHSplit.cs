@@ -1,6 +1,6 @@
 
 namespace SunamoStringSplit;
-public partial class SHSplit //: SHData
+public class SHSplit //: SHData
 {
     internal static List<string> SplitNone(string text, params string[] deli)
     {
