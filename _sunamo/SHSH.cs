@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 internal class SHSH
 {
-    public static int OccurencesOfStringIn(string source, string p_2)
+    internal static int OccurencesOfStringIn(string source, string p_2)
     {
         return source.Split(new string[] { p_2 }, StringSplitOptions.None).Length - 1;
     }
@@ -42,7 +42,7 @@ internal class SHSH
         }
     }
 
-    public static List<int> ReturnOccurencesOfString(string vcem, string co)
+    internal static List<int> ReturnOccurencesOfString(string vcem, string co)
     {
 
         List<int> Results = new List<int>();
