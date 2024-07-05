@@ -1,5 +1,5 @@
 
-namespace SunamoStringSplit;
+namespace SunamoStringSplit._sunamo.SunamoValues;
 internal class AllStrings
 {
     internal const string dot = ".";

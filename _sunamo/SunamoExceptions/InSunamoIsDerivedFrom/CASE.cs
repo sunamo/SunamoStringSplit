@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SunamoStringSplit;
+namespace SunamoStringSplit._sunamo.SunamoExceptions.InSunamoIsDerivedFrom;
 internal class CASE
 {
     internal static List<string> Trim(List<string> l)

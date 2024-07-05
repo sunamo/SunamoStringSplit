@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SunamoStringSplit;
+namespace SunamoStringSplit._sunamo.SunamoExtensions;
 internal static class ListExtensions
 {
     internal static List<T> AddOrSet<T>(this IList<T> list, int dx, T item)

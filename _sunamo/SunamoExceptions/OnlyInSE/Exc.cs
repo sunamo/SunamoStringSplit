@@ -1,5 +1,5 @@
 
-namespace SunamoStringSplit;
+namespace SunamoStringSplit._sunamo.SunamoExceptions.OnlyInSE;
 using System.Diagnostics;
 using System.Text;
 
