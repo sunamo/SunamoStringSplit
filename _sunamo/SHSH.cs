@@ -1,10 +1,4 @@
-
 namespace SunamoStringSplit._sunamo;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 
 internal class SHSH
@@ -63,4 +57,3 @@ internal class SHSH
         return Results;
     }
 }
-

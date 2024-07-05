@@ -20,3 +20,6 @@ global using SunamoStringSplit._sunamo.SunamoXlfKeys;
 global using SunamoStringSplit._sunamo.SunamoExceptions.InSunamoIsDerivedFrom;
 global using SunamoStringSplit._sunamo.SunamoExceptions.OnlyInSE;
 global using SunamoStringSplit._sunamo.SunamoExceptions._AddedToAllCsproj;
+global using System.Diagnostics;
+global using System.Net;
+global using System.Threading.Tasks;

@@ -1,4 +1,3 @@
-
 namespace SunamoStringSplit;
 public class SHSplit //: SHData
 {

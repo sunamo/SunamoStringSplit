@@ -1,4 +1,3 @@
-
 namespace SunamoStringSplit._sunamo.SunamoExceptions.OnlyInSE;
 internal class TranslateAble
 {
