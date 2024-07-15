@@ -27,10 +27,6 @@ public class SHSplit //: SHData
     {
         return Split(StringSplitOptions.RemoveEmptyEntries, parametry, deli);
     }
-    public static List<string> SplitChar(string s, params char[] dot)
-    {
-        return s.Split(dot, StringSplitOptions.RemoveEmptyEntries).ToList();
-    }
     public static List<string> SplitByIndexes(string input, List<int> bm)
     {
         List<string> d = new List<string>(bm.Count + 1);
@@ -113,7 +109,7 @@ public class SHSplit //: SHData
         List<string> result = parametry.Split(sep, removeEmptyEntries).ToList();
         return result;
     }
-    private static List<string> SplitChar(StringSplitOptions removeEmptyEntries, string parametry,
+    private static List<string> SplitCharMore(StringSplitOptions removeEmptyEntries, string parametry,
         params char[] deli)
     {
         List<char> t = deli.ToList();
@@ -181,7 +177,7 @@ public class SHSplit //: SHData
     }
     public static void SplitToParts2(string df, string deli, ref string before, ref string after)
     {
-        var p = SHSplit.Split(df, deli);
+        var p = SHSplit.SplitMore(df, deli);
         before = p[0];
         after = p[1];
     }
@@ -256,7 +252,7 @@ public class SHSplit //: SHData
     }
     public static List<string> SplitBySpaceAndPunctuationChars(string s)
     {
-        return SHSplit.SplitChar(s, spaceAndPuntactionChars);
+        return SHSplit.SplitCharMore(s, spaceAndPuntactionChars);
     }
     public static List<string> SplitNoneCharList(string text, List<string> deli)
     {
@@ -264,7 +260,7 @@ public class SHSplit //: SHData
     }
     public static List<string> SplitNoneChar(string text, params char[] deli)
     {
-        return SplitChar(StringSplitOptions.None, text, deli);
+        return SplitCharMore(StringSplitOptions.None, text, deli);
     }
     public static List<string> SplitByWhiteSpaces(string s, bool removeEmpty = false)
     {
@@ -306,7 +302,7 @@ public class SHSplit //: SHData
     /// <param name="p_2"></param>
     public static List<string> SplitToParts(string what, int parts, string deli)
     {
-        var s = SHSplit.Split(what, deli);
+        var s = SHSplit.SplitMore(what, deli);
         if (s.Count < parts)
         {
             // Pokud je pocet ziskanych partu mensi, vlozim do zbytku prazdne retezce
@@ -371,7 +367,7 @@ public class SHSplit //: SHData
             lines = lines.ConvertAll(d => d.Trim());
             foreach (var item in lines)
             {
-                var p = SHSplit.Split(item, Consts.transformTo);
+                var p = SHSplit.SplitMore(item, Consts.transformTo);
                 from.AppendLine(p[0]);
                 to.AppendLine(p[1]);
             }
@@ -478,7 +474,7 @@ public class SHSplit //: SHData
     public static List<string> SplitAndReturnRegexMatches(string input, Regex r, params char[] del)
     {
         List<string> vr = new List<string>();
-        var ds = SHSplit.SplitChar(input, del);
+        var ds = SHSplit.SplitCharMore(input, del);
         foreach (var item in ds)
         {
             if (r.IsMatch(item))
@@ -505,7 +501,7 @@ public class SHSplit //: SHData
         }
         //indexyDelimiteru.OrderBy(d => d);
         indexyDelimiteru.Sort();
-        var s = SHSplit.SplitChar(what, deli);
+        var s = SHSplit.SplitCharMore(what, deli);
         if (s.Count < parts)
         {
             //throw new Exception("");
@@ -600,7 +596,7 @@ public class SHSplit //: SHData
     }
     public static string SplitParagraphToMaxChars(string text, int maxChars)
     {
-        var parts = SHSplit.Split(text, Environment.NewLine);
+        var parts = SHSplit.SplitMore(text, Environment.NewLine);
         List<List<string>> d = new List<List<string>>();
         foreach (var item in parts)
         {
@@ -756,7 +752,7 @@ public class SHSplit //: SHData
     /// <param name="joinOverloadedPartsToLast"></param>
     public static List<string> SplitToParts(string what, int parts, string deli, bool addEmptyPaddingItems /*, bool joinOverloadedPartsToLast - not used */)
     {
-        var s = SHSplit.Split(what, deli);
+        var s = SHSplit.SplitMore(what, deli);
         if (s.Count < parts)
         {
             // Pokud je pocet ziskanych partu mensi, vlozim do zbytku prazdne retezce
