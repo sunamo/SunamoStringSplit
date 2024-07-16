@@ -2,7 +2,7 @@
 namespace SunamoStringSplit._sunamo;
 using System.Collections.Generic;
 
-public class CA
+internal class CA
 {
     internal static bool IsListStringWrappedInArray<T>(List<T> v2)
     {
@@ -11,7 +11,7 @@ public class CA
         first == "System.Collections.Generic.List`1[System.Object]")) return true;
         return false;
     }
-    public static List<string> Trim(List<string> l)
+    internal static List<string> Trim(List<string> l)
     {
         for (var i = 0; i < l.Count; i++) l[i] = l[i].Trim();
         return l;
