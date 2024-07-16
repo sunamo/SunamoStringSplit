@@ -14,3 +14,4 @@ global using SunamoStringSplit._sunamo.SunamoValues;
 global using SunamoStringSplit._sunamo.SunamoExceptions.OnlyInSE;
 global using System.Diagnostics;
 global using System.Net;
+global using SunamoStringSplit._sunamo;

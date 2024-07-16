@@ -1,4 +1,4 @@
-//namespace SunamoStringSplit._sunamo.SunamoExceptions._AddedToAllCsproj;
+namespace SunamoStringSplit._sunamo;
 
 internal class CA
 {
