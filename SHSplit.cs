@@ -35,10 +35,10 @@ public class SHSplit //: SHData
         before = input;
         for (int i = bm.Count - 1; i >= 0; i--)
         {
-            (before, after) = SHSH.GetPartsByLocationNoOutInt(before, bm[i]);
+            (before, after) = SH.GetPartsByLocationNoOutInt(before, bm[i]);
             d.Insert(0, after);
         }
-        (before, after) = SHSH.GetPartsByLocationNoOutInt(before, bm[0]);
+        (before, after) = SH.GetPartsByLocationNoOutInt(before, bm[0]);
         d.Insert(0, before);
         d.Reverse();
         return d;
@@ -91,7 +91,7 @@ public class SHSplit //: SHData
         //var ie = CA.OneElementCollectionToMulti(deli);
         //var deli3 = new List<string>IEnumerable2(ie);
         var result = text.Split(deli, stringSplitOptions).ToList();
-        CASE.Trim(result);
+        _sunamo.CA.Trim(result);
         if (stringSplitOptions == StringSplitOptions.RemoveEmptyEntries)
         {
             result = result.Where(d => d.Trim() != string.Empty).ToList();
@@ -497,7 +497,7 @@ public class SHSplit //: SHData
         List<int> indexyDelimiteru = new List<int>();
         foreach (var item in deli)
         {
-            indexyDelimiteru.AddRange(SHSH.ReturnOccurencesOfString(what, item.ToString()));
+            indexyDelimiteru.AddRange(SH.ReturnOccurencesOfString(what, item.ToString()));
         }
         //indexyDelimiteru.OrderBy(d => d);
         indexyDelimiteru.Sort();
@@ -613,7 +613,7 @@ public class SHSplit //: SHData
             var f = s1.Length;
             if (f > maxChars)
             {
-                var dxDots = SHSH.ReturnOccurencesOfString(s1, AllStrings.dot);
+                var dxDots = SH.ReturnOccurencesOfString(s1, AllStrings.dot);
                 int i = 0;
                 int dx = 0;
                 int alreadyProcessed = 0;
@@ -637,7 +637,7 @@ public class SHSplit //: SHData
                                     // Může mi to občas přetáhnout limit 250 znaků ale furt je to lepší než mít na začátku rok
                                     var ddx = dxDots[i - 1] + 1;
                                     ddx -= alreadyTrimmed;
-                                    (before, after) = SHSH.GetPartsByLocationNoOutInt(s1, ddx);
+                                    (before, after) = SH.GetPartsByLocationNoOutInt(s1, ddx);
                                     after = after.Trim();
                                     if (after == string.Empty)
                                     {
@@ -677,8 +677,8 @@ public class SHSplit //: SHData
                                     var ls = d[index];
                                     if (d1)
                                     {
-                                        var bC = SHSH.OccurencesOfStringIn(before, "ThisParagraphIsLongerThan500Characters" + ".");
-                                        var aC = SHSH.OccurencesOfStringIn(after, "ThisParagraphIsLongerThan500Characters" + ".");
+                                        var bC = SH.OccurencesOfStringIn(before, "ThisParagraphIsLongerThan500Characters" + ".");
+                                        var aC = SH.OccurencesOfStringIn(after, "ThisParagraphIsLongerThan500Characters" + ".");
                                         ////DebugLogger.Instance.WriteLine("bC", bC);
                                         ////DebugLogger.Instance.WriteLine("aC", aC);
                                     }

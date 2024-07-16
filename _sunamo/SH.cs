@@ -1,8 +1,8 @@
-namespace SunamoStringSplit._sunamo.SunamoExceptions;
+﻿namespace SunamoStringSplit._sunamo;
 
-
-internal class SHSE
+internal class SH
 {
+
     internal static string JoinNL(List<string> l)
     {
         StringBuilder sb = new();
@@ -11,8 +11,8 @@ internal class SHSE
         r = sb.ToString();
         return r;
     }
-    
-    
+
+
     internal static string FirstCharLower(string nazevPP)
     {
         if (nazevPP.Length < 2) return nazevPP;
@@ -72,7 +72,7 @@ internal class SHSE
         throw new Exception(
         "Tahle metoda vypadala jinak ale jak idiot jsem ji změnil. Tím jak jsem poté přesouval metody tam zpět už je těžké se k tomu dostat.");
         return null;
-        //return n == null ? " " + ConstsSE.nulled : AllStrings.space + v.ToString();
+        //return n == null ? " " + Consts.nulled : AllStrings.space + v.ToString();
     }
     /// <summary>
     ///     Usage: BadFormatOfElementInList
@@ -97,5 +97,60 @@ internal class SHSE
     {
         while (name.EndsWith(ext)) return name.Substring(0, name.Length - ext.Length);
         return name;
+    }
+
+
+    internal static int OccurencesOfStringIn(string source, string p_2)
+    {
+        return source.Split(new string[] { p_2 }, StringSplitOptions.None).Length - 1;
+    }
+
+    internal static (string, string) GetPartsByLocationNoOutInt(string text, int pozice)
+    {
+        string pred, za;
+        GetPartsByLocation(out pred, out za, text, pozice);
+        return (pred, za);
+    }
+
+    internal static void GetPartsByLocation(out string pred, out string za, string text, int pozice)
+    {
+        if (pozice == -1)
+        {
+            pred = text;
+            za = "";
+        }
+        else
+        {
+            pred = text.Substring(0, pozice);
+            if (text.Length > pozice + 1)
+            {
+                za = text.Substring(pozice + 1);
+            }
+            else
+            {
+                za = string.Empty;
+            }
+        }
+    }
+
+    internal static List<int> ReturnOccurencesOfString(string vcem, string co)
+    {
+
+        List<int> Results = new List<int>();
+        for (int Index = 0; Index < (vcem.Length - co.Length) + 1; Index++)
+        {
+            var subs = vcem.Substring(Index, co.Length);
+            ////////DebugLogger.Instance.WriteLine(subs);
+            // non-breaking space. &nbsp; code 160
+            // 32 space
+            char ch = subs[0];
+            char ch2 = co[0];
+            if (subs == AllStrings.space)
+            {
+            }
+            if (subs == co)
+                Results.Add(Index);
+        }
+        return Results;
     }
 }
