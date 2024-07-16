@@ -1,5 +1,7 @@
-namespace SunamoStringSplit._sunamo.SunamoExceptions.InSunamoIsDerivedFrom;
-internal class CA
+//namespace SunamoStringSplit._sunamo.SunamoExceptions.InSunamoIsDerivedFrom;
+
+//namespace SunamoStringSplit._sunamo.SunamoExceptions.InSunamoIsDerivedFrom;
+internal partial class CA
 {
     internal static List<string> Trim(List<string> l)
     {

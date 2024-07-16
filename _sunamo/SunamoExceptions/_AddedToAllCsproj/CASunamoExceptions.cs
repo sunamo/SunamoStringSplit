@@ -1,6 +1,6 @@
-namespace SunamoStringSplit._sunamo.SunamoExceptions._AddedToAllCsproj;
+//namespace SunamoStringSplit._sunamo.SunamoExceptions._AddedToAllCsproj;
 
-internal class CASunamoExceptions
+internal partial class CA
 {
     internal static bool IsListStringWrappedInArray<T>(List<T> v2)
     {

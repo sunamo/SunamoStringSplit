@@ -1,5 +1,7 @@
-namespace SunamoStringSplit._sunamo.SunamoExceptions._AddedToAllCsproj;
-internal class FSSunamoExceptions
+//namespace SunamoStringSplit._sunamo.SunamoExceptions._AddedToAllCsproj;
+
+//namespace SunamoStringSplit._sunamo.SunamoExceptions._AddedToAllCsproj;
+internal class FS
 {
     internal static void CreateUpfoldersPsysicallyUnlessThere(string nad)
     {
