@@ -18,6 +18,7 @@ internal class SH
         var sb = nazevPP.Substring(1);
         return nazevPP[0].ToString().ToLower() + sb;
     }
+
     /// <summary>
     ///     Convert \r\n to NewLine etc.
     /// </summary>
@@ -36,8 +37,10 @@ internal class SH
             case "\\t":
                 return "\t";
         }
+
         return delimiter;
     }
+
     /// <summary>
     ///     Musí tu být. split z .net vrací []
     ///     krom toho je instanční. musel bych měnit hodně kódu kvůli toho
@@ -50,14 +53,17 @@ internal class SH
     {
         return s.Split(dot, StringSplitOptions.RemoveEmptyEntries).ToList();
     }
+
     internal static List<string> SplitMore(string s, params string[] dot)
     {
         return s.Split(dot, StringSplitOptions.RemoveEmptyEntries).ToList();
     }
+
     internal static List<string> SplitNone(string text, params string[] deli)
     {
         return text.Split(deli, StringSplitOptions.None).ToList();
     }
+
     /// <summary>
     ///     Usage: BadFormatOfElementInList
     ///     If null, return Consts.nulled
@@ -73,6 +79,7 @@ internal class SH
         return null;
         //return n == null ? " " + Consts.nulled : AllStrings.space + v.ToString();
     }
+
     /// <summary>
     ///     Usage: BadFormatOfElementInList
     ///     If null, return Consts.nulled
@@ -85,6 +92,7 @@ internal class SH
         //return NullToStringOrDefault(n, null);
         return n == null ? " " + Consts.nulled : AllStrings.space + n;
     }
+
     /// <summary>
     ///     Usage: Exceptions.MoreCandidates
     ///     není v .net (pouze char), přes split to taky nedává smysl (dá se to udělat i s .net ale bude to pomalejší)
@@ -101,7 +109,7 @@ internal class SH
 
     internal static int OccurencesOfStringIn(string source, string p_2)
     {
-        return source.Split(new string[] { p_2 }, StringSplitOptions.None).Length - 1;
+        return source.Split(new[] { p_2 }, StringSplitOptions.None).Length - 1;
     }
 
     internal static (string, string) GetPartsByLocationNoOutInt(string text, int pozice)
@@ -122,37 +130,31 @@ internal class SH
         {
             pred = text.Substring(0, pozice);
             if (text.Length > pozice + 1)
-            {
                 za = text.Substring(pozice + 1);
-            }
             else
-            {
                 za = string.Empty;
-            }
         }
     }
 
     internal static List<int> ReturnOccurencesOfString(string vcem, string co)
     {
-
-        List<int> Results = new List<int>();
-        for (int Index = 0; Index < (vcem.Length - co.Length) + 1; Index++)
+        var Results = new List<int>();
+        for (var Index = 0; Index < vcem.Length - co.Length + 1; Index++)
         {
             var subs = vcem.Substring(Index, co.Length);
             ////////DebugLogger.Instance.WriteLine(subs);
             // non-breaking space. &nbsp; code 160
             // 32 space
-            char ch = subs[0];
-            char ch2 = co[0];
+            var ch = subs[0];
+            var ch2 = co[0];
             if (subs == AllStrings.space)
             {
             }
+
             if (subs == co)
                 Results.Add(Index);
         }
+
         return Results;
     }
-
-
-
 }
