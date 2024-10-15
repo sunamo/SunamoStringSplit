@@ -1,5 +1,4 @@
 namespace SunamoStringSplit;
-
 public class SHSplit //: SHData
 {
     public static char[] spaceAndPuntactionChars =
@@ -79,7 +78,7 @@ public class SHSplit //: SHData
     /////         udělá Object[]<List
     /////         <char>
     /////             >
-    /////             Usage: Exc.TypeAndMethodName
+    /////             Usage: Exceptions.TypeAndMethodName
     ///// </summary>
     ///// <param name="parametry"></param>
     ///// <param name="deli"></param>
