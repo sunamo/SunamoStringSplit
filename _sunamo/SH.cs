@@ -66,7 +66,7 @@ internal class SH
 
     /// <summary>
     ///     Usage: BadFormatOfElementInList
-    ///     If null, return Consts.nulled
+    ///     If null, return "(null)"
     ///     nemůžu odstranit z sunamo, i tam se používá.
     /// </summary>
     /// <param name="n"></param>
@@ -77,12 +77,12 @@ internal class SH
         throw new Exception(
             "Tahle metoda vypadala jinak ale jak idiot jsem ji změnil. Tím jak jsem poté přesouval metody tam zpět už je těžké se k tomu dostat.");
         return null;
-        //return n == null ? " " + Consts.nulled : AllStrings.space + v.ToString();
+        //return n == null ? " " + "(null)" : "" + v.ToString();
     }
 
     /// <summary>
     ///     Usage: BadFormatOfElementInList
-    ///     If null, return Consts.nulled
+    ///     If null, return "(null)"
     ///     jsem
     /// </summary>
     /// <param name="n"></param>
@@ -90,7 +90,7 @@ internal class SH
     internal static string NullToStringOrDefault(object n)
     {
         //return NullToStringOrDefault(n, null);
-        return n == null ? " " + Consts.nulled : AllStrings.space + n;
+        return n == null ? " " + "(null)" : "" + n;
     }
 
     /// <summary>
@@ -147,7 +147,7 @@ internal class SH
             // 32 space
             var ch = subs[0];
             var ch2 = co[0];
-            if (subs == AllStrings.space)
+            if (subs == "")
             {
             }
 

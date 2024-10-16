@@ -1,14 +1,15 @@
 namespace SunamoStringSplit;
+
 public class SHSplit //: SHData
 {
     public static char[] spaceAndPuntactionChars =
     {
-        AllChars.space, AllChars.dash, AllChars.dot, AllChars.comma, AllChars.sc, AllChars.colon, AllChars.excl,
-        AllChars.q, '\u2013', '\u2014', '\u2010', '\u2026', '\u201E', '\u201C', '\u201A', '\u2018', '\u00BB', '\u00AB',
-        '\u2019', AllChars.bs, AllChars.lb, AllChars.rb, AllChars.rsqb, AllChars.lsqb, AllChars.lcub, AllChars.rcub,
-        '\u3008', '\u3009', AllChars.lt, AllChars.gt, AllChars.slash, AllChars.bs, AllChars.verbar, '\u201D',
-        AllChars.qm, '~', '\u00B0', AllChars.plus, '@', '#', '$', AllChars.percnt, '^', '&', AllChars.asterisk, '=',
-        AllChars.lowbar, '\u02C7', '\u00A8', '\u00A4', '\u00F7', '\u00D7', '\u02DD'
+        ' ', '-', '.', ',', ';', ':', '!',
+        '?', '\u2013', '\u2014', '\u2010', '\u2026', '\u201E', '\u201C', '\u201A', '\u2018', '\u00BB', '\u00AB',
+        '\u2019', '\\', '(', ')', ']', '[', '{', '}',
+        '\u3008', '\u3009', '<', '>', '/', '\\', '|', '\u201D',
+        '"', '~', '\u00B0', '+', '@', '#', '$', '%', '^', '&', '*', '=',
+        '_', '\u02C7', '\u00A8', '\u00A4', '\u00F7', '\u00D7', '\u02DD'
     };
 
     private static bool Result;
@@ -73,7 +74,7 @@ public class SHSplit //: SHData
     //    return se.SH.NullToStringOrDefault(n, v);
     //}
     ///// <summary>
-    /////     Nemůže to být string[], protože jak předávám třeba AllChars.whiteSpacesChars tak mi to z List
+    /////     Nemůže to být string[], protože jak předávám třeba AllChars.whiteSpaceChars tak mi to z List
     /////     <char>
     /////         udělá Object[]<List
     /////         <char>
@@ -269,13 +270,18 @@ public class SHSplit //: SHData
 
     public static List<string> SplitByWhiteSpaces(string s, bool removeEmpty = false)
     {
+        WhitespaceCharService whitespaceChar = new();
+
         List<string> r = null;
         if (removeEmpty)
-            //r = s.Split(AllChars.whiteSpacesChars.ToArray()).ToList();
-            r = SplitCharMore(s, AllChars.whiteSpacesChars.ToArray()).ToList();
+        {
+
+            //r = s.Split(AllChars.whiteSpaceChars.ToArray()).ToList();
+            r = SplitCharMore(s, whitespaceChar.whiteSpaceChars.ToArray()).ToList();
+        }
         else
-            //r = s.Split(AllChars.whiteSpacesChars.ToArray(), StringSplitOptions.None).ToList();
-            r = SplitNone(s, AllStrings.whiteSpacesChars.ToArray()).ToList();
+            //r = s.Split(AllChars.whiteSpaceChars.ToArray(), StringSplitOptions.None).ToList();
+            r = SplitNone(s, whitespaceChar.whiteSpaceChars.ConvertAll(d => d.ToString()).ToArray()).ToList();
         return r;
     }
 
@@ -342,13 +348,13 @@ public class SHSplit //: SHData
     {
         var to = new StringBuilder();
         var from = new StringBuilder();
-        if (input.Contains(Consts.transformTo))
+        if (input.Contains("->"))
         {
             var lines = SHGetLines.GetLines(input);
             lines = lines.ConvertAll(d => d.Trim());
             foreach (var item in lines)
             {
-                var p = SplitMore(item, Consts.transformTo);
+                var p = SplitMore(item, "->");
                 from.AppendLine(p[0]);
                 to.AppendLine(p[1]);
             }
@@ -534,7 +540,7 @@ public class SHSplit //: SHData
             Result = true;
         }
 
-        if (c1 == AllChars.space && char.IsUpper(c2))
+        if (c1 == ' ' && char.IsUpper(c2))
         {
             delimitingChars = string.Join(string.Empty, c0, c1, c2);
             Result = true;
@@ -565,7 +571,7 @@ public class SHSplit //: SHData
             var f = s1.Length;
             if (f > maxChars)
             {
-                var dxDots = SH.ReturnOccurencesOfString(s1, AllStrings.dot);
+                var dxDots = SH.ReturnOccurencesOfString(s1, ".");
                 var i = 0;
                 var dx = 0;
                 var alreadyProcessed = 0;
@@ -661,11 +667,11 @@ public class SHSplit //: SHData
 
         var sb = new StringBuilder();
         foreach (var item in d)
-        foreach (var line in item)
-        {
-            sb.AppendLine(line);
-            sb.AppendLine();
-        }
+            foreach (var line in item)
+            {
+                sb.AppendLine(line);
+                sb.AppendLine();
+            }
 
         return sb.ToString();
     }
@@ -685,7 +691,7 @@ public class SHSplit //: SHData
 
     public static List<string> SplitByNewLines(string pull)
     {
-        return SplitMore(pull, AllStrings.nl, AllStrings.cr);
+        return SplitMore(pull, "\n", "\r");
     }
 
     /// <param name="what"></param>
