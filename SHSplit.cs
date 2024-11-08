@@ -16,33 +16,33 @@ public class SHSplit //: SHData
 
     public static List<string> SplitNone(string text, params string[] deli)
     {
-        return text.Split(deli, StringSplitOptions.None).ToList();
+        return text.RemoveInvisibleChars().Split(deli, StringSplitOptions.None).ToList();
     }
 
     public static List<string> SplitList(string parametry, List<string> deli)
     {
-        return Split(StringSplitOptions.RemoveEmptyEntries, parametry, deli.ToArray());
+        return Split(StringSplitOptions.RemoveEmptyEntries, parametry.RemoveInvisibleChars(), deli.ToArray());
     }
 
     public static List<string> SplitCharList(string parametry, List<char> deli)
     {
-        return Split(StringSplitOptions.RemoveEmptyEntries, parametry, deli.ConvertAll(d => d.ToString()).ToArray());
+        return Split(StringSplitOptions.RemoveEmptyEntries, parametry.RemoveInvisibleChars(), deli.ConvertAll(d => d.ToString()).ToArray());
     }
 
     public static List<string> SplitMore(string parametry, params string[] deli)
     {
-        return Split(StringSplitOptions.RemoveEmptyEntries, parametry, deli);
+        return Split(StringSplitOptions.RemoveEmptyEntries, parametry.RemoveInvisibleChars(), deli);
     }
 
     public static List<string> SplitCharMore(string parametry, params char[] deli)
     {
-        return Split(StringSplitOptions.RemoveEmptyEntries, parametry,
+        return Split(StringSplitOptions.RemoveEmptyEntries, parametry.RemoveInvisibleChars(),
             deli.ToList().ConvertAll(d => d.ToString()).ToArray());
     }
 
     public static List<string> Split(string parametry, string deli)
     {
-        return Split(StringSplitOptions.RemoveEmptyEntries, parametry, deli);
+        return Split(StringSplitOptions.RemoveEmptyEntries, parametry.RemoveInvisibleChars(), deli);
     }
 
     public static List<string> SplitByIndexes(string input, List<int> bm)
@@ -107,7 +107,7 @@ public class SHSplit //: SHData
         if (deli == null || deli.Count() == 0) throw new Exception("NoDelimiterDetermined");
         //var ie = CA.OneElementCollectionToMulti(deli);
         //var deli3 = new List<string>IEnumerable2(ie);
-        var result = text.Split(deli, stringSplitOptions).ToList();
+        var result = text.RemoveInvisibleChars().Split(deli, stringSplitOptions).ToList();
         CA.Trim(result);
         if (stringSplitOptions == StringSplitOptions.RemoveEmptyEntries)
             result = result.Where(d => d.Trim() != string.Empty).ToList();
@@ -119,7 +119,7 @@ public class SHSplit //: SHData
         var t = deli.ToList();
         var sep = new string[t.Count()];
         for (var i = 0; i < sep.Length; i++) sep[i] = t[i].ToString();
-        var result = parametry.Split(sep, removeEmptyEntries).ToList();
+        var result = parametry.RemoveInvisibleChars().Split(sep, removeEmptyEntries).ToList();
         return result;
     }
 
@@ -129,7 +129,7 @@ public class SHSplit //: SHData
         var t = deli.ToList();
         var sep = new string[t.Count()];
         for (var i = 0; i < sep.Length; i++) sep[i] = t[i].ToString();
-        var result = parametry.Split(sep, removeEmptyEntries).ToList();
+        var result = parametry.RemoveInvisibleChars().Split(sep, removeEmptyEntries).ToList();
         return result;
     }
 
@@ -142,7 +142,7 @@ public class SHSplit //: SHData
     public static List<string> SplitAndKeepDelimiters(string originalString, List<string> ienu)
     {
         //var ienu = (IList)deli;
-        var vr = Regex.Split(originalString, @"(?<=[" + string.Join("", ienu) + "])");
+        var vr = Regex.Split(originalString.RemoveInvisibleChars(), @"(?<=[" + string.Join("", ienu) + "])");
         return vr.ToList();
     }
 
@@ -159,7 +159,7 @@ public class SHSplit //: SHData
         var dex = input.LastIndexOf(delimiter);
         if (dex != -1)
         {
-            SplitByIndex(input, dex, out filePath, out fileName);
+            SplitByIndex(input.RemoveInvisibleChars(), dex, out filePath, out fileName);
         }
         else
         {
@@ -170,6 +170,7 @@ public class SHSplit //: SHData
 
     public static List<string> SplitByLetterCount(string s, int c)
     {
+        s = s.RemoveInvisibleChars();
         var sl = s.Length;
         var e = sl / c;
         var remain = sl % c;
@@ -188,7 +189,7 @@ public class SHSplit //: SHData
 
     public static void SplitToParts2(string df, string deli, ref string before, ref string after)
     {
-        var p = SplitMore(df, deli);
+        var p = SplitMore(df.RemoveInvisibleChars(), deli);
         before = p[0];
         after = p[1];
     }
@@ -208,7 +209,7 @@ public class SHSplit //: SHData
     {
         var vr = new List<string>();
         vr.Add("");
-        foreach (var item in veta)
+        foreach (var item in veta.RemoveInvisibleChars())
         {
             var jeMezeraOrPunkce = false;
             foreach (var item2 in spaceAndPuntactionChars)
@@ -238,7 +239,7 @@ public class SHSplit //: SHData
     public static List<int> SplitToIntListNone(string stringToSplit, params string[] delimiter)
     {
         List<int> nt = null;
-        stringToSplit = stringToSplit.Trim();
+        stringToSplit = stringToSplit.Trim().RemoveInvisibleChars();
         if (stringToSplit != "")
         {
             var f = SplitNone(stringToSplit, delimiter);
@@ -255,23 +256,23 @@ public class SHSplit //: SHData
 
     public static List<string> SplitBySpaceAndPunctuationChars(string s)
     {
-        return SplitCharMore(s, spaceAndPuntactionChars);
+        return SplitCharMore(s.RemoveInvisibleChars(), spaceAndPuntactionChars);
     }
 
     public static List<string> SplitNoneCharList(string text, List<string> deli)
     {
-        return Split(StringSplitOptions.None, text, deli.ToArray());
+        return Split(StringSplitOptions.None, text.RemoveInvisibleChars(), deli.ToArray());
     }
 
     public static List<string> SplitNoneChar(string text, params char[] deli)
     {
-        return SplitCharMore(StringSplitOptions.None, text, deli);
+        return SplitCharMore(StringSplitOptions.None, text.RemoveInvisibleChars(), deli);
     }
 
     public static List<string> SplitByWhiteSpaces(string s, bool removeEmpty = false)
     {
         WhitespaceCharService whitespaceChar = new();
-
+        s = s.RemoveInvisibleChars();
         List<string> r = null;
         if (removeEmpty)
         {
@@ -292,7 +293,7 @@ public class SHSplit //: SHData
     /// <param name="delimiter"></param>
     public static List<int> SplitToIntList(string stringToSplit, params string[] delimiter)
     {
-        var f = SplitMore(stringToSplit, delimiter);
+        var f = SplitMore(stringToSplit.RemoveInvisibleChars(), delimiter);
         var nt = new List<int>(f.Count);
         foreach (var item in f) nt.Add(int.Parse(item));
         return nt;
@@ -307,7 +308,7 @@ public class SHSplit //: SHData
     /// <param name="p_2"></param>
     public static List<string> SplitToParts(string what, int parts, string deli)
     {
-        var s = SplitMore(what, deli);
+        var s = SplitMore(what.RemoveInvisibleChars(), deli);
         if (s.Count < parts)
         {
             // Pokud je pocet ziskanych partu mensi, vlozim do zbytku prazdne retezce
@@ -348,6 +349,7 @@ public class SHSplit //: SHData
     {
         var to = new StringBuilder();
         var from = new StringBuilder();
+
         if (input.Contains("->"))
         {
             var lines = SHGetLines.GetLines(input);
