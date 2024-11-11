@@ -147,9 +147,7 @@ internal class SH
             // 32 space
             var ch = subs[0];
             var ch2 = co[0];
-            if (subs == "")
-            {
-            }
+
 
             if (subs == co)
                 Results.Add(Index);
