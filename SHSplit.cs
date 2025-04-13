@@ -85,7 +85,7 @@ public partial class SHSplit //: SHData
     public static List<string> SplitAndReturnRegexMatches(string input, Regex r, params char[] del)
     {
         var vr = new List<string>();
-        var ds = SplitCharMore(input, del);
+        var ds = SplitChar(input, del);
         foreach (var item in ds)
             if (r.IsMatch(item))
                 vr.Add(item);
@@ -166,12 +166,12 @@ public partial class SHSplit //: SHData
 
     public static List<string> SplitByNewLines(string pull)
     {
-        return SplitMore(pull, "\n", "\r");
+        return Split(pull, "\n", "\r");
     }
 
     public static List<string> SplitBySpaceAndPunctuationChars(string s)
     {
-        return SplitCharMore(s.RemoveInvisibleChars(), spaceAndPuntactionChars);
+        return SplitChar(s.RemoveInvisibleChars(), spaceAndPuntactionChars);
     }
 
     public static List<string> SplitBySpaceAndPunctuationCharsAndWhiteSpaces(string s)
@@ -230,7 +230,7 @@ public partial class SHSplit //: SHData
         if (removeEmpty)
         {
             //r = s.Split(AllChars.whiteSpaceChars.ToArray()).ToList();
-            r = SplitCharMore(s, whitespaceChar.whiteSpaceChars.ToArray()).ToList();
+            r = SplitChar(s, whitespaceChar.whiteSpaceChars.ToArray()).ToList();
         }
         else
             //r = s.Split(AllChars.whiteSpaceChars.ToArray(), StringSplitOptions.None).ToList();
@@ -286,7 +286,7 @@ public partial class SHSplit //: SHData
             lines = lines.ConvertAll(d => d.Trim());
             foreach (var item in lines)
             {
-                var p = SplitMore(item, "->");
+                var p = Split(item, "->");
                 from.AppendLine(p[0]);
                 to.AppendLine(p[1]);
             }
@@ -311,7 +311,7 @@ public partial class SHSplit //: SHData
 
     public static string SplitParagraphToMaxChars(string text, int maxChars)
     {
-        var parts = SplitMore(text, Environment.NewLine);
+        var parts = Split(text, Environment.NewLine);
         var d = new List<List<string>>();
         foreach (var item in parts) ThrowEx.NotImplementedMethod();
         //d.Add(new List<string>(item));
@@ -437,7 +437,7 @@ public partial class SHSplit //: SHData
     /// <param name="delimiter"></param>
     public static List<int> SplitToIntList(string stringToSplit, params string[] delimiter)
     {
-        var f = SplitMore(stringToSplit.RemoveInvisibleChars(), delimiter);
+        var f = Split(stringToSplit.RemoveInvisibleChars(), delimiter);
         var nt = new List<int>(f.Count);
         foreach (var item in f) nt.Add(int.Parse(item));
         return nt;
@@ -470,7 +470,7 @@ public partial class SHSplit //: SHData
     /// <param name="p_2"></param>
     public static List<string> SplitToParts(string what, int parts, string deli)
     {
-        var s = SplitMore(what.RemoveInvisibleChars(), deli);
+        var s = Split(what.RemoveInvisibleChars(), deli);
         if (s.Count < parts)
         {
             // Pokud je pocet ziskanych partu mensi, vlozim do zbytku prazdne retezce
@@ -515,7 +515,7 @@ public partial class SHSplit //: SHData
     public static List<string> SplitToParts(string what, int parts, string deli,
         bool addEmptyPaddingItems /*, bool joinOverloadedPartsToLast - not used */)
     {
-        var s = SplitMore(what, deli);
+        var s = Split(what, deli);
         if (s.Count < parts)
         {
             // Pokud je pocet ziskanych partu mensi, vlozim do zbytku prazdne retezce
@@ -554,7 +554,7 @@ public partial class SHSplit //: SHData
 
     public static void SplitToParts2(string df, string deli, ref string before, ref string after)
     {
-        var p = SplitMore(df.RemoveInvisibleChars(), deli);
+        var p = Split(df.RemoveInvisibleChars(), deli);
         before = p[0];
         after = p[1];
     }
@@ -622,7 +622,7 @@ public partial class SHSplit //: SHData
         foreach (var item in deli) indexyDelimiteru.AddRange(SH.ReturnOccurencesOfString(what, item.ToString()));
         //indexyDelimiteru.OrderBy(d => d);
         indexyDelimiteru.Sort();
-        var s = SplitCharMore(what, deli);
+        var s = SplitChar(what, deli);
         if (s.Count < parts)
         {
             //throw new Exception("");

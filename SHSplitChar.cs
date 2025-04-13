@@ -6,7 +6,7 @@ partial class SHSplit
         return Split(StringSplitOptions.RemoveEmptyEntries, parametry.RemoveInvisibleChars(), deli.ConvertAll(d => d.ToString()).ToArray());
     }
 
-    public static List<string> SplitCharMore(string parametry, params char[] deli)
+    public static List<string> SplitChar(string parametry, params char[] deli)
     {
         return Split(StringSplitOptions.RemoveEmptyEntries, parametry.RemoveInvisibleChars(),
             deli.ToList().ConvertAll(d => d.ToString()).ToArray());
@@ -14,7 +14,7 @@ partial class SHSplit
 
     public static List<string> SplitNoneChar(string text, params char[] deli)
     {
-        return SplitCharMore(StringSplitOptions.None, text.RemoveInvisibleChars(), deli);
+        return SplitChar(StringSplitOptions.None, text.RemoveInvisibleChars(), deli);
     }
 
     public static List<string> SplitNoneCharList(string text, List<char> deli)
@@ -23,7 +23,7 @@ partial class SHSplit
         return Split(StringSplitOptions.None, text.RemoveInvisibleChars(), converted.ToArray());
     }
 
-    private static List<string> SplitCharMore(StringSplitOptions removeEmptyEntries, string parametry,
+    private static List<string> SplitChar(StringSplitOptions removeEmptyEntries, string parametry,
         params char[] deli)
     {
         var t = deli.ToList();

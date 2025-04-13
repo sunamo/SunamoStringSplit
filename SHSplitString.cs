@@ -11,7 +11,7 @@ partial class SHSplit
         return Split(StringSplitOptions.RemoveEmptyEntries, parametry.RemoveInvisibleChars(), deli.ToArray());
     }
 
-    public static List<string> SplitMore(string parametry, params string[] deli)
+    public static List<string> Split(string parametry, params string[] deli)
     {
         return Split(StringSplitOptions.RemoveEmptyEntries, parametry.RemoveInvisibleChars(), deli);
     }
