@@ -1,6 +1,6 @@
 namespace SunamoStringSplit;
 
-public class SHSplit //: SHData
+public partial class SHSplit //: SHData
 {
     public static char[] spaceAndPuntactionChars =
     {
@@ -21,10 +21,7 @@ public class SHSplit //: SHData
                 bold.RemoveAt(i);
     }
 
-    public static List<string> Split(string parametry, string deli)
-    {
-        return Split(StringSplitOptions.RemoveEmptyEntries, parametry.RemoveInvisibleChars(), deli);
-    }
+
 
     ///// <summary>
     ///// Zde to dává smysl, potřebuji i v SE
@@ -59,6 +56,7 @@ public class SHSplit //: SHData
     //{
     //    return Split(StringSplitOptions.RemoveEmptyEntries, parametry, deli);
     //}
+
     /// <summary>
     ///     With these
     /// </summary>
@@ -240,16 +238,9 @@ public class SHSplit //: SHData
         return r;
     }
 
-    public static List<string> SplitCharList(string parametry, List<char> deli)
-    {
-        return Split(StringSplitOptions.RemoveEmptyEntries, parametry.RemoveInvisibleChars(), deli.ConvertAll(d => d.ToString()).ToArray());
-    }
 
-    public static List<string> SplitCharMore(string parametry, params char[] deli)
-    {
-        return Split(StringSplitOptions.RemoveEmptyEntries, parametry.RemoveInvisibleChars(),
-            deli.ToList().ConvertAll(d => d.ToString()).ToArray());
-    }
+
+
 
     /// <summary>
     ///     V A2 vrátí jednotlivé znaky z A1, v A3 bude false, pokud znak v A2 bude delimiter, jinak True
@@ -314,30 +305,9 @@ public class SHSplit //: SHData
         return new Tuple<List<string>, List<string>>(SHGetLines.GetLines(t.Item1), SHGetLines.GetLines(t.Item2));
     }
 
-    public static List<string> SplitList(string parametry, List<string> deli)
-    {
-        return Split(StringSplitOptions.RemoveEmptyEntries, parametry.RemoveInvisibleChars(), deli.ToArray());
-    }
 
-    public static List<string> SplitMore(string parametry, params string[] deli)
-    {
-        return Split(StringSplitOptions.RemoveEmptyEntries, parametry.RemoveInvisibleChars(), deli);
-    }
 
-    public static List<string> SplitNone(string text, params string[] deli)
-    {
-        return text.RemoveInvisibleChars().Split(deli, StringSplitOptions.None).ToList();
-    }
 
-    public static List<string> SplitNoneChar(string text, params char[] deli)
-    {
-        return SplitCharMore(StringSplitOptions.None, text.RemoveInvisibleChars(), deli);
-    }
-
-    public static List<string> SplitNoneCharList(string text, List<string> deli)
-    {
-        return Split(StringSplitOptions.None, text.RemoveInvisibleChars(), deli.ToArray());
-    }
 
     public static string SplitParagraphToMaxChars(string text, int maxChars)
     {
@@ -728,22 +698,7 @@ public class SHSplit //: SHData
         return Result;
     }
 
-    private static List<string> Split(StringSplitOptions removeEmptyEntries, string parametry, List<char> deli)
-    {
-        var t = deli.ToList();
-        var sep = new string[t.Count()];
-        for (var i = 0; i < sep.Length; i++) sep[i] = t[i].ToString();
-        var result = parametry.RemoveInvisibleChars().Split(sep, removeEmptyEntries).ToList();
-        return result;
-    }
 
-    private static List<string> SplitCharMore(StringSplitOptions removeEmptyEntries, string parametry,
-        params char[] deli)
-    {
-        var t = deli.ToList();
-        var sep = new string[t.Count()];
-        for (var i = 0; i < sep.Length; i++) sep[i] = t[i].ToString();
-        var result = parametry.RemoveInvisibleChars().Split(sep, removeEmptyEntries).ToList();
-        return result;
-    }
+
+
 }

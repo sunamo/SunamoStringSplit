@@ -1,0 +1,5 @@
+﻿zásady pojmenování:
+None v názvu pokud nemaže prázdné
+Char v názvu pokud delimiter se zadává jako char. 
+List pokud se zadává jako List<T>. MOre už není potřeba protože params je výchozí
+
