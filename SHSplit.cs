@@ -507,50 +507,6 @@ public partial class SHSplit //: SHData
         return vr;
     }
 
-    /// <param name="what"></param>
-    /// <param name="parts"></param>
-    /// <param name="deli"></param>
-    /// <param name="addEmptyPaddingItems"></param>
-    /// <param name="joinOverloadedPartsToLast"></param>
-    public static List<string> SplitToParts(string what, int parts, string deli,
-        bool addEmptyPaddingItems /*, bool joinOverloadedPartsToLast - not used */)
-    {
-        var s = Split(what, deli);
-        if (s.Count < parts)
-        {
-            // Pokud je pocet ziskanych partu mensi, vlozim do zbytku prazdne retezce
-            if (s.Count == 0)
-            {
-                var vr2 = new List<string>();
-                for (var i = 0; i < parts; i++)
-                    if (i < s.Count)
-                        vr2.Add(s[i]);
-                    else
-                        vr2.Add("");
-                return vr2;
-                //return new List<string> { s[0] };
-            }
-
-            return null;
-        }
-
-        if (s.Count == parts)
-            // Pokud pocet ziskanych partu souhlasim presne, vratim jak je
-            return s;
-        // Pokud je pocet ziskanych partu vetsi nez kolik ma byt, pripojim ty co josu navic do zbytku
-        parts--;
-        var vr = new List<string>();
-        for (var i = 0; i < s.Count; i++)
-            if (i < parts)
-                vr.Add(s[i]);
-            else if (i == parts)
-                vr.Add(s[i] + deli);
-            else if (i != s.Count - 1)
-                vr[parts] += s[i] + deli;
-            else
-                vr[parts] += s[i];
-        return vr;
-    }
 
     public static void SplitToParts2(string df, string deli, ref string before, ref string after)
     {
