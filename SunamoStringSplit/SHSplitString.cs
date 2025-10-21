@@ -1,4 +1,7 @@
-﻿namespace SunamoStringSplit;
+// EN: Variable names have been checked and replaced with self-descriptive names
+// CZ: Názvy proměnných byly zkontrolovány a nahrazeny samopopisnými názvy
+
+namespace SunamoStringSplit;
 partial class SHSplit
 {
     public static List<string> Split(string parametry, string deli)
@@ -23,9 +26,9 @@ partial class SHSplit
 
     private static List<string> Split(StringSplitOptions removeEmptyEntries, string parametry, List<char> deli)
     {
-        var t = deli.ToList();
-        var sep = new string[t.Count()];
-        for (var i = 0; i < sep.Length; i++) sep[i] = t[i].ToString();
+        var temp = deli.ToList();
+        var sep = new string[temp.Count()];
+        for (var i = 0; i < sep.Length; i++) sep[i] = temp[i].ToString();
         var result = parametry.RemoveInvisibleChars().Split(sep, removeEmptyEntries).ToList();
         return result;
     }

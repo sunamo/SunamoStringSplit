@@ -1,3 +1,6 @@
+// EN: Variable names have been checked and replaced with self-descriptive names
+// CZ: Názvy proměnných byly zkontrolovány a nahrazeny samopopisnými názvy
+
 namespace SunamoStringSplit;
 
 public partial class SHSplit //: SHData
@@ -14,24 +17,24 @@ public partial class SHSplit //: SHData
 
     private static bool Result;
 
-    public static void RemoveWhichHaveWhitespaceAtBothSides(string s, List<int> bold)
+    public static void RemoveWhichHaveWhitespaceAtBothSides(string text, List<int> bold)
     {
         for (var i = bold.Count - 1; i >= 0; i--)
-            if (char.IsWhiteSpace(s[bold[i] - 1]) && char.IsWhiteSpace(s[bold[i] + 1]))
+            if (char.IsWhiteSpace(text[bold[i] - 1]) && char.IsWhiteSpace(text[bold[i] + 1]))
                 bold.RemoveAt(i);
     }
 
 
 
     ///// <summary>
-    ///// Zde to dává smysl, potřebuji i v SE
+    ///// Zde to dává smysl, potřebuji i value SE
     ///// </summary>
     ///// <param name="n"></param>
     ///// <param name="v"></param>
     ///// <returns></returns>
-    //public static string NullToStringOrDefault(object n, string v)
+    //public static string NullToStringOrDefault(object n, string value)
     //{
-    //    return se.SH.NullToStringOrDefault(n, v);
+    //    return se.SH.NullToStringOrDefault(n, value);
     //}
     ///// <summary>
     /////     Nemůže to být string[], protože jak předávám třeba AllChars.whiteSpaceChars tak mi to z List
@@ -71,7 +74,7 @@ public partial class SHSplit //: SHData
         var result = text.RemoveInvisibleChars().Split(deli, stringSplitOptions).ToList();
         CA.Trim(result);
         if (stringSplitOptions == StringSplitOptions.RemoveEmptyEntries)
-            result = result.Where(d => d.Trim() != string.Empty).ToList();
+            result = result.Where(data => data.Trim() != string.Empty).ToList();
         return result;
     }
 
@@ -99,28 +102,28 @@ public partial class SHSplit //: SHData
     /// <param name="firstNormal"></param>
     /// <param name="title"></param>
     /// <param name="remix"></param>
-    public static void SplitByIndex(string p, int firstNormal, out string title, out string remix)
+    public static void SplitByIndex(string parameter, int firstNormal, out string title, out string remix)
     {
-        title = p.Substring(0, firstNormal);
-        remix = p.Substring(firstNormal + 1);
+        title = parameter.Substring(0, firstNormal);
+        remix = parameter.Substring(firstNormal + 1);
     }
 
     public static List<string> SplitByIndexes(string input, List<int> bm)
     {
-        var d = new List<string>(bm.Count + 1);
+        var data = new List<string>(bm.Count + 1);
         bm.Sort();
         string before, after;
         before = input;
         for (var i = bm.Count - 1; i >= 0; i--)
         {
             (before, after) = SH.GetPartsByLocationNoOutInt(before, bm[i]);
-            d.Insert(0, after);
+            data.Insert(0, after);
         }
 
         (before, after) = SH.GetPartsByLocationNoOutInt(before, bm[0]);
-        d.Insert(0, before);
-        d.Reverse();
-        return d;
+        data.Insert(0, before);
+        data.Reverse();
+        return data;
     }
 
     /// <summary>
@@ -145,23 +148,23 @@ public partial class SHSplit //: SHData
         }
     }
 
-    public static List<string> SplitByLetterCount(string s, int c)
+    public static List<string> SplitByLetterCount(string text, int c)
     {
-        s = s.RemoveInvisibleChars();
-        var sl = s.Length;
-        var e = sl / c;
+        text = text.RemoveInvisibleChars();
+        var sl = text.Length;
+        var element = sl / c;
         var remain = sl % c;
-        if (remain != 0) throw new Exception("NumbersOfLetters" + " " + s + " is not dividable with " + c);
-        var ls = new List<string>(c);
+        if (remain != 0) throw new Exception("NumbersOfLetters" + " " + text + " is not dividable with " + c);
+        var sourceList = new List<string>(c);
         var from = 0;
-        while (s.Length > from + c - 2)
+        while (text.Length > from + c - 2)
         {
-            ls.Add(s.Substring(from, c));
+            sourceList.Add(text.Substring(from, c));
             from += c;
             if (from == sl) break;
         }
 
-        return ls;
+        return sourceList;
     }
 
     public static List<string> SplitByNewLines(string pull)
@@ -169,15 +172,15 @@ public partial class SHSplit //: SHData
         return Split(pull, "\n", "\r");
     }
 
-    public static List<string> SplitBySpaceAndPunctuationChars(string s)
+    public static List<string> SplitBySpaceAndPunctuationChars(string text)
     {
-        return SplitChar(s.RemoveInvisibleChars(), spaceAndPuntactionChars);
+        return SplitChar(text.RemoveInvisibleChars(), spaceAndPuntactionChars);
     }
 
-    public static List<string> SplitBySpaceAndPunctuationCharsAndWhiteSpaces(string s)
+    public static List<string> SplitBySpaceAndPunctuationCharsAndWhiteSpaces(string text)
     {
         throw new NotImplementedException();
-        //return s.Split(s_spaceAndPuntactionCharsAndWhiteSpaces).ToList();
+        //return text.Split(s_spaceAndPuntactionCharsAndWhiteSpaces).ToList();
     }
 
     /// <summary>
@@ -215,7 +218,7 @@ public partial class SHSplit //: SHData
         return vr;
     }
 
-    public static List<string> SplitByWhiteSpaces(string s, bool removeEmpty = false)
+    public static List<string> SplitByWhiteSpaces(string text, bool removeEmpty = false)
     {
         WhitespaceCharService whitespaceChar = new();
         whitespaceChar.ConvertWhiteSpaceCodesToChars();
@@ -225,16 +228,16 @@ public partial class SHSplit //: SHData
             ThrowEx.Custom($"whitespaceChar.whiteSpaceChars is not initialized"); ;
         }
 
-        s = s.RemoveInvisibleChars();
+        text = text.RemoveInvisibleChars();
         List<string> r = null;
         if (removeEmpty)
         {
-            //r = s.Split(AllChars.whiteSpaceChars.ToArray()).ToList();
-            r = SplitChar(s, whitespaceChar.whiteSpaceChars.ToArray()).ToList();
+            //r = text.Split(AllChars.whiteSpaceChars.ToArray()).ToList();
+            r = SplitChar(text, whitespaceChar.whiteSpaceChars.ToArray()).ToList();
         }
         else
-            //r = s.Split(AllChars.whiteSpaceChars.ToArray(), StringSplitOptions.None).ToList();
-            r = SplitNone(s, whitespaceChar.whiteSpaceChars.ConvertAll(d => d.ToString()).ToArray()).ToList();
+            //r = text.Split(AllChars.whiteSpaceChars.ToArray(), StringSplitOptions.None).ToList();
+            r = SplitNone(text, whitespaceChar.whiteSpaceChars.ConvertAll(data => data.ToString()).ToArray()).ToList();
         return r;
     }
 
@@ -243,7 +246,7 @@ public partial class SHSplit //: SHData
 
 
     /// <summary>
-    ///     V A2 vrátí jednotlivé znaky z A1, v A3 bude false, pokud znak v A2 bude delimiter, jinak True
+    ///     value A2 vrátí jednotlivé znaky z A1, value A3 bude false, pokud znak value A2 bude delimiter, jinak True
     /// </summary>
     /// <param name="what"></param>
     /// <param name="chs"></param>
@@ -283,12 +286,12 @@ public partial class SHSplit //: SHData
         if (input.Contains("->"))
         {
             var lines = SHGetLines.GetLines(input);
-            lines = lines.ConvertAll(d => d.Trim());
+            lines = lines.ConvertAll(data => data.Trim());
             foreach (var item in lines)
             {
-                var p = Split(item, "->");
-                from.AppendLine(p[0]);
-                to.AppendLine(p[1]);
+                var parameter = Split(item, "->");
+                from.AppendLine(parameter[0]);
+                to.AppendLine(parameter[1]);
             }
         }
         else
@@ -301,8 +304,8 @@ public partial class SHSplit //: SHData
 
     public static Tuple<List<string>, List<string>> SplitFromReplaceManyFormatList(string input)
     {
-        var t = SplitFromReplaceManyFormat(input);
-        return new Tuple<List<string>, List<string>>(SHGetLines.GetLines(t.Item1), SHGetLines.GetLines(t.Item2));
+        var temp = SplitFromReplaceManyFormat(input);
+        return new Tuple<List<string>, List<string>>(SHGetLines.GetLines(temp.Item1), SHGetLines.GetLines(temp.Item2));
     }
 
 
@@ -312,11 +315,11 @@ public partial class SHSplit //: SHData
     public static string SplitParagraphToMaxChars(string text, int maxChars)
     {
         var parts = Split(text, Environment.NewLine);
-        var d = new List<List<string>>();
+        var data = new List<List<string>>();
         foreach (var item in parts) ThrowEx.NotImplementedMethod();
-        //d.Add(new List<string>(item));
+        //data.Add(new List<string>(item));
         var index = -1;
-        foreach (var item in d)
+        foreach (var item in data)
         {
             var d1 = false;
             index++;
@@ -378,7 +381,7 @@ public partial class SHSplit //: SHData
                                         ////DebugLogger.Instance.WriteLine("s1C", s1C);
                                     }
 
-                                    var ls = d[index];
+                                    var sourceList = data[index];
                                     if (d1)
                                     {
                                         var bC = SH.OccurencesOfStringIn(before,
@@ -392,13 +395,13 @@ public partial class SHSplit //: SHData
                                     if (dx < 0)
                                     {
                                         var sb2 = new StringBuilder();
-                                        foreach (var item3 in ls) sb2.AppendLine(item3);
+                                        foreach (var item3 in sourceList) sb2.AppendLine(item3);
                                         var txt = sb2.ToString();
                                     }
 
-                                    ls.AddOrSet(dx, before);
+                                    sourceList.AddOrSet(dx, before);
                                     dx++;
-                                    ls.AddOrSet(dx, after);
+                                    sourceList.AddOrSet(dx, after);
                                     dx++;
                                     if (d1)
                                     {
@@ -410,24 +413,24 @@ public partial class SHSplit //: SHData
                     }
                     else
                     {
-                        var ls = d[index];
-                        s1 = s1.Replace(ls.Last(), string.Empty).Trim();
-                        if (s1 != string.Empty) ls.AddOrSet(dx, s1);
+                        var sourceList = data[index];
+                        s1 = s1.Replace(sourceList.Last(), string.Empty).Trim();
+                        if (s1 != string.Empty) sourceList.AddOrSet(dx, s1);
                         break;
                     }
                 }
             }
         }
 
-        var sb = new StringBuilder();
-        foreach (var item in d)
+        var stringBuilder = new StringBuilder();
+        foreach (var item in data)
             foreach (var line in item)
             {
-                sb.AppendLine(line);
-                sb.AppendLine();
+                stringBuilder.AppendLine(line);
+                stringBuilder.AppendLine();
             }
 
-        return sb.ToString();
+        return stringBuilder.ToString();
     }
 
     /// <summary>
@@ -470,54 +473,54 @@ public partial class SHSplit //: SHData
     /// <param name="p_2"></param>
     public static List<string> SplitToParts(string what, int parts, string deli)
     {
-        var s = Split(what.RemoveInvisibleChars(), deli);
-        if (s.Count < parts)
+        var text = Split(what.RemoveInvisibleChars(), deli);
+        if (text.Count < parts)
         {
             // Pokud je pocet ziskanych partu mensi, vlozim do zbytku prazdne retezce
-            if (s.Count > 0)
+            if (text.Count > 0)
             {
                 var vr2 = new List<string>();
                 for (var i = 0; i < parts; i++)
-                    if (i < s.Count)
-                        vr2.Add(s[i]);
+                    if (i < text.Count)
+                        vr2.Add(text[i]);
                     else
                         vr2.Add("");
                 return vr2;
-                //return new string[] { s[0] };
+                //return new string[] { text[0] };
             }
 
             return null;
         }
 
-        if (s.Count == parts)
+        if (text.Count == parts)
             // Pokud pocet ziskanych partu souhlasim presne, vratim jak je
-            return s;
+            return text;
         // Pokud je pocet ziskanych partu vetsi nez kolik ma byt, pripojim ty co josu navic do zbytku
         parts--;
         var vr = new List<string>();
-        for (var i = 0; i < s.Count; i++)
+        for (var i = 0; i < text.Count; i++)
             if (i < parts)
-                vr.Add(s[i]);
+                vr.Add(text[i]);
             else if (i == parts)
-                vr.Add(s[i] + deli);
-            else if (i != s.Count - 1)
-                vr[parts] += s[i] + deli;
+                vr.Add(text[i] + deli);
+            else if (i != text.Count - 1)
+                vr[parts] += text[i] + deli;
             else
-                vr[parts] += s[i];
+                vr[parts] += text[i];
         return vr;
     }
 
 
     public static void SplitToParts2(string df, string deli, ref string before, ref string after)
     {
-        var p = Split(df.RemoveInvisibleChars(), deli);
-        before = p[0];
-        after = p[1];
+        var parameter = Split(df.RemoveInvisibleChars(), deli);
+        before = parameter[0];
+        after = parameter[1];
     }
 
     /// <summary>
     ///     FUNGUJE ale může být pomalá, snaž se využívat co nejméně
-    ///     Pokud někde bude více delimiterů těsně za sebou, ve výsledku toto nebude, bude tam jen poslední delimiter v té řadě
+    ///     Pokud někde bude více delimiterů těsně za sebou, ve výsledku toto nebude, bude tam jen poslední delimiter value té řadě
     ///     příklad z 1,.Par při delimiteru , a . bude 1.Par
     /// </summary>
     /// <param name="what"></param>
@@ -530,43 +533,43 @@ public partial class SHSplit //: SHData
         List<int> delimitersIndexes = null;
         SplitCustom(what, out chs, out bw, out delimitersIndexes, deli);
         var vr = new List<string>(parts);
-        var sb = new StringBuilder();
+        var stringBuilder = new StringBuilder();
         for (var i = chs.Count - 1; i >= 0; i--)
             if (!bw[i])
             {
                 while (i != 0 && !bw[i - 1]) i--;
-                var d = sb.ToString();
-                sb.Clear();
-                if (d != "") vr.Add(d);
+                var data = stringBuilder.ToString();
+                stringBuilder.Clear();
+                if (data != "") vr.Add(data);
             }
             else
             {
-                sb.Insert(0, chs[i]);
-                //sb.Append(chs[i]);
+                stringBuilder.Insert(0, chs[i]);
+                //stringBuilder.Append(chs[i]);
             }
 
-        var d2 = sb.ToString();
-        sb.Clear();
+        var d2 = stringBuilder.ToString();
+        stringBuilder.Clear();
         if (d2 != "") vr.Add(d2);
-        var v = new List<string>(parts);
+        var value = new List<string>(parts);
         for (var i = 0; i < vr.Count; i++)
-            if (v.Count != parts)
+            if (value.Count != parts)
             {
-                v.Insert(0, vr[i]);
+                value.Insert(0, vr[i]);
             }
             else
             {
                 var ds = what[delimitersIndexes[i - 1]].ToString();
-                v[0] = vr[i] + ds + v[0];
+                value[0] = vr[i] + ds + value[0];
             }
 
-        return v;
+        return value;
     }
 
     /// <summary>
     ///     TODO: Zatím NEfunguje 100%ně, až někdy budeš mít chuť tak se můžeš pokusit tuto metodu opravit. Zatím ji
     ///     nepoužívej, místo ní používej pomalejší ale funkční SplitToPartsFromEnd
-    ///     Vrátí null v případě že řetězec bude prázdný
+    ///     Vrátí null value případě že řetězec bude prázdný
     ///     Pokud bude mít A1 méně částí než A2, vratí nenalezené části jako SE
     /// </summary>
     /// <param name="what"></param>
@@ -576,66 +579,66 @@ public partial class SHSplit //: SHData
     {
         var indexyDelimiteru = new List<int>();
         foreach (var item in deli) indexyDelimiteru.AddRange(SH.ReturnOccurencesOfString(what, item.ToString()));
-        //indexyDelimiteru.OrderBy(d => d);
+        //indexyDelimiteru.OrderBy(data => data);
         indexyDelimiteru.Sort();
-        var s = SplitChar(what, deli);
-        if (s.Count < parts)
+        var text = SplitChar(what, deli);
+        if (text.Count < parts)
         {
             //throw new Exception("");
-            if (s.Count > 0)
+            if (text.Count > 0)
             {
                 var vr2 = new List<string>();
                 for (var i = 0; i < parts; i++)
-                    if (i < s.Count)
-                        vr2.Add(s[i]);
+                    if (i < text.Count)
+                        vr2.Add(text[i]);
                     else
                         vr2.Add("");
                 return vr2;
-                //return new List<string> { s[0] };
+                //return new List<string> { text[0] };
             }
 
             return null;
         }
 
-        if (s.Count == parts) return s;
-        var parts2 = s.Count - parts - 1;
+        if (text.Count == parts) return text;
+        var parts2 = text.Count - parts - 1;
         //parts += povysit;
-        if (parts < s.Count - 1) parts++;
+        if (parts < text.Count - 1) parts++;
         var vr = new List<string>(parts);
         // Tady musí být 4 menší než 1, protože po 1. iteraci to bude 3,pak 2, pak 1
-        for (; parts > parts2; parts--) vr.Insert(0, s[parts]);
+        for (; parts > parts2; parts--) vr.Insert(0, text[parts]);
         parts++;
-        for (var i = 1; i < parts; i++) vr[0] = s[i] + what[indexyDelimiteru[i]] + vr[0];
+        for (var i = 1; i < parts; i++) vr[0] = text[i] + what[indexyDelimiteru[i]] + vr[0];
         //}
-        vr[0] = s[0] + what[indexyDelimiteru[0]] + vr[0];
+        vr[0] = text[0] + what[indexyDelimiteru[0]] + vr[0];
         return vr;
     }
 
     private static bool IsEndOfSentence(int dxDot, string s1, out string delimitingChars)
     {
         delimitingChars = null;
-        var s = s1.Substring(dxDot);
-        var c0 = s[0];
+        var text = s1.Substring(dxDot);
+        var c0 = text[0];
         char c1, c2;
         c1 = '@';
         c2 = '@';
-        if (s.Length > 1)
+        if (text.Length > 1)
         {
-            c1 = s[1];
+            c1 = text[1];
         }
         else
         {
-            delimitingChars = s.Substring(0);
+            delimitingChars = text.Substring(0);
             Result = true;
         }
 
-        if (s.Length > 2)
+        if (text.Length > 2)
         {
-            c2 = s[2];
+            c2 = text[2];
         }
         else
         {
-            delimitingChars = s.Substring(1);
+            delimitingChars = text.Substring(1);
             Result = true;
         }
 
