@@ -1,6 +1,7 @@
+namespace SunamoStringSplit;
+
 // EN: Variable names have been checked and replaced with self-descriptive names
 // CZ: Názvy proměnných byly zkontrolovány a nahrazeny samopopisnými názvy
-namespace SunamoStringSplit;
 public partial class SHSplit
 {
     public static void SplitToParts2(string df, string deli, ref string before, ref string after)
