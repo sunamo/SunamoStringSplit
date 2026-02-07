@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="SunamoStringSplit.Tests\\SunamoStringSplit.Tests.csproj" />
+  <Project Path="RunnerStringSplit\\RunnerStringSplit.csproj" />
+  <Project Path="SunamoStringSplit\SunamoStringSplit.csproj" />
+</Solution>
