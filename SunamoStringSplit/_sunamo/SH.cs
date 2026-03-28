@@ -1,64 +1,74 @@
 namespace SunamoStringSplit._sunamo;
 
+/// <summary>
+/// String helper utility class.
+/// </summary>
 internal class SH
 {
-
-
-
-    
-    
-
-
-    
-    
-    
-
-    internal static int OccurencesOfStringIn(string source, string p_2)
+    /// <summary>
+    /// Counts occurrences of a substring in a source string.
+    /// </summary>
+    /// <param name="source">The source string to search in.</param>
+    /// <param name="searchText">The substring to count occurrences of.</param>
+    /// <returns>The number of occurrences found.</returns>
+    internal static int OccurencesOfStringIn(string source, string searchText)
     {
-        return source.Split(new[] { p_2 }, StringSplitOptions.None).Length - 1;
+        return source.Split(new[] { searchText }, StringSplitOptions.None).Length - 1;
     }
 
-    internal static (string, string) GetPartsByLocationNoOutInt(string text, int pozice)
+    /// <summary>
+    /// Splits a string into two parts at the specified position.
+    /// </summary>
+    /// <param name="text">The text to split.</param>
+    /// <param name="position">The index position at which to split.</param>
+    /// <returns>A tuple containing the part before and after the position.</returns>
+    internal static (string, string) GetPartsByLocationNoOutInt(string text, int position)
     {
-        string pred, za;
-        GetPartsByLocation(out pred, out za, text, pozice);
-        return (pred, za);
+        GetPartsByLocation(out string before, out string after, text, position);
+        return (before, after);
     }
 
-    internal static void GetPartsByLocation(out string pred, out string za, string text, int pozice)
+    /// <summary>
+    /// Splits a string into two parts at the specified position using out parameters.
+    /// </summary>
+    /// <param name="before">The part of the string before the position.</param>
+    /// <param name="after">The part of the string after the position.</param>
+    /// <param name="text">The text to split.</param>
+    /// <param name="position">The index position at which to split.</param>
+    internal static void GetPartsByLocation(out string before, out string after, string text, int position)
     {
-        if (pozice == -1)
+        if (position == -1)
         {
-            pred = text;
-            za = "";
+            before = text;
+            after = "";
         }
         else
         {
-            pred = text.Substring(0, pozice);
-            if (text.Length > pozice + 1)
-                za = text.Substring(pozice + 1);
+            before = text.Substring(0, position);
+            if (text.Length > position + 1)
+                after = text.Substring(position + 1);
             else
-                za = string.Empty;
+                after = string.Empty;
         }
     }
 
-    internal static List<int> ReturnOccurencesOfString(string vcem, string co)
+    /// <summary>
+    /// Returns all index positions where a substring occurs in a string.
+    /// </summary>
+    /// <param name="text">The text to search in.</param>
+    /// <param name="searchText">The substring to find occurrences of.</param>
+    /// <returns>A list of index positions where the substring occurs.</returns>
+    internal static List<int> ReturnOccurencesOfString(string text, string searchText)
     {
-        var Results = new List<int>();
-        for (var Index = 0; Index < vcem.Length - co.Length + 1; Index++)
+        var results = new List<int>();
+        for (var index = 0; index < text.Length - searchText.Length + 1; index++)
         {
-            var subs = vcem.Substring(Index, co.Length);
-            ////////DebugLogger.Instance.WriteLine(subs);
-            // non-breaking space. &nbsp; code 160
-            // 32 space
-            var ch = subs[0];
-            var ch2 = co[0];
+            var substring = text.Substring(index, searchText.Length);
 
-
-            if (subs == co)
-                Results.Add(Index);
+            if (substring == searchText)
+                results.Add(index);
         }
 
-        return Results;
+        return results;
     }
 }

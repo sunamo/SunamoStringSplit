@@ -1,34 +1,48 @@
 namespace SunamoStringSplit._sunamo.SunamoExceptions;
 
-// EN: Variable names have been checked and replaced with self-descriptive names
-// CZ: Názvy proměnných byly zkontrolovány a nahrazeny samopopisnými názvy
+/// <summary>
+/// Provides methods for throwing exceptions with detailed context information.
+/// </summary>
 internal partial class ThrowEx
 {
-
-
-    internal static bool Custom(string message, bool reallyThrow = true, string secondMessage = "")
+    /// <summary>
+    /// Throws a custom exception with the specified message.
+    /// </summary>
+    /// <param name="message">The primary error message.</param>
+    /// <param name="isReallyThrowing">Whether to actually throw the exception or just return true.</param>
+    /// <param name="secondMessage">An optional secondary message to append.</param>
+    /// <returns>True if the exception would be thrown, false otherwise.</returns>
+    internal static bool Custom(string message, bool isReallyThrowing = true, string secondMessage = "")
     {
         string joined = string.Join(" ", message, secondMessage);
-        string? str = Exceptions.Custom(FullNameOfExecutedCode(), joined);
-        return ThrowIsNotNull(str, reallyThrow);
+        string? exception = Exceptions.Custom(FullNameOfExecutedCode(), joined);
+        return ThrowIsNotNull(exception, isReallyThrowing);
     }
 
+    /// <summary>
+    /// Throws a "not implemented method" exception.
+    /// </summary>
+    /// <returns>True if the exception was thrown.</returns>
     internal static bool NotImplementedMethod() { return ThrowIsNotNull(Exceptions.NotImplementedMethod); }
 
     #region Other
+    /// <summary>
+    /// Gets the full name (type + method) of the currently executed code.
+    /// </summary>
+    /// <returns>The fully qualified name of the executing code.</returns>
     internal static string FullNameOfExecutedCode()
     {
-        Tuple<string, string, string> placeOfExc = Exceptions.PlaceOfException();
-        string f = FullNameOfExecutedCode(placeOfExc.Item1, placeOfExc.Item2, true);
-        return f;
+        Tuple<string, string, string> placeOfException = Exceptions.PlaceOfException();
+        string result = FullNameOfExecutedCode(placeOfException.Item1, placeOfException.Item2, true);
+        return result;
     }
 
-    static string FullNameOfExecutedCode(object type, string methodName, bool fromThrowEx = false)
+    private static string FullNameOfExecutedCode(object type, string methodName, bool isFromThrowEx = false)
     {
         if (methodName == null)
         {
             int depth = 2;
-            if (fromThrowEx)
+            if (isFromThrowEx)
             {
                 depth++;
             }
@@ -36,9 +50,9 @@ internal partial class ThrowEx
             methodName = Exceptions.CallingMethod(depth);
         }
         string typeFullName;
-        if (type is Type type2)
+        if (type is Type typeAsType)
         {
-            typeFullName = type2.FullName ?? "Type cannot be get via type is Type type2";
+            typeFullName = typeAsType.FullName ?? "Type cannot be get via type is Type type2";
         }
         else if (type is MethodBase method)
         {
@@ -51,18 +65,24 @@ internal partial class ThrowEx
         }
         else
         {
-            Type t = type.GetType();
-            typeFullName = t.FullName ?? "Type cannot be get via type.GetType()";
+            Type objectType = type.GetType();
+            typeFullName = objectType.FullName ?? "Type cannot be get via type.GetType()";
         }
         return string.Concat(typeFullName, ".", methodName);
     }
 
-    internal static bool ThrowIsNotNull(string? exception, bool reallyThrow = true)
+    /// <summary>
+    /// Throws an exception if the exception message is not null.
+    /// </summary>
+    /// <param name="exception">The exception message to check.</param>
+    /// <param name="isReallyThrowing">Whether to actually throw or just return the result.</param>
+    /// <returns>True if the exception message was not null.</returns>
+    internal static bool ThrowIsNotNull(string? exception, bool isReallyThrowing = true)
     {
         if (exception != null)
         {
             Debugger.Break();
-            if (reallyThrow)
+            if (isReallyThrowing)
             {
                 throw new Exception(exception);
             }
@@ -72,13 +92,15 @@ internal partial class ThrowEx
     }
 
     #region For avoid FullNameOfExecutedCode
-
-
-
-    internal static bool ThrowIsNotNull(Func<string, string?> f)
+    /// <summary>
+    /// Throws an exception if the function returns a non-null exception message.
+    /// </summary>
+    /// <param name="function">The function that generates the exception message.</param>
+    /// <returns>True if the exception was thrown.</returns>
+    internal static bool ThrowIsNotNull(Func<string, string?> function)
     {
-        string? exc = f(FullNameOfExecutedCode());
-        return ThrowIsNotNull(exc);
+        string? exception = function(FullNameOfExecutedCode());
+        return ThrowIsNotNull(exception);
     }
     #endregion
     #endregion

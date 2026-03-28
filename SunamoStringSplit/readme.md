@@ -1,20 +1,60 @@
-### SunamoStringSplit
+# SunamoStringSplit
 
-Part of PlatformIndependentNuGetPackages:
+A .NET library providing comprehensive methods for splitting strings using various delimiters and strategies.
 
-- [nuget.org](https://www.nuget.org/profiles/sunamo)
-- [github.org](https://github.com/sunamo/PlatformIndependentNuGetPackages)
+## Overview
 
-Another links:
+SunamoStringSplit is part of the Sunamo package ecosystem, providing modular, platform-independent string splitting utilities for .NET development.
 
-- [Developer site](https://sunamo.cz)
+## Key Features
 
-Request for new features / bug report / etc: [Mail](mailto:radek.jancik@sunamo.cz) or on GitHub
+- Split strings by characters, strings, whitespace, or punctuation
+- Split with or without removing empty entries
+- Split into a specific number of parts (from start or end)
+- Split while keeping delimiters in the result
+- Split and filter by regex patterns
+- Split by character indexes
+- Split by letter count
+- Parse split results directly to integer lists
+
+## Main Methods
+
+- `Split()` - Split by string delimiters with various options
+- `SplitChar()` / `SplitCharList()` - Split by character delimiters
+- `SplitNone()` / `SplitNoneChar()` - Split without removing empty entries
+- `SplitByWhiteSpaces()` - Split by all Unicode whitespace characters
+- `SplitBySpaceAndPunctuationChars()` - Split by space and punctuation
+- `SplitByNewLines()` - Split by newline characters
+- `SplitAndKeepDelimiters()` - Split while preserving delimiters
+- `SplitAndReturnRegexMatches()` - Split and filter by regex
+- `SplitByIndex()` / `SplitByIndexes()` - Split at specific positions
+- `SplitByLetterCount()` - Split into equal-length segments
+- `SplitToParts()` - Split into a specific number of parts
+- `SplitToPartsFromEnd()` - Split into parts from the end
+- `SplitToIntList()` - Split and parse to integers
+
+## Installation
+
+```bash
+dotnet add package SunamoStringSplit
+```
+
 ## Target Frameworks
 
-**TargetFrameworks:** `net10.0;net9.0;net8.0`
+- .NET 10.0
+- .NET 9.0
+- .NET 8.0
 
-**Reason:** Code uses C# 12.0 features (collection expressions, primary constructors) or dependencies requiring .NET 8.0+:
-- Collection expressions `[]` syntax requires C# 12.0 (net8.0+)
-- Primary constructors require C# 12.0 (net8.0+) 
-- Entity Framework Core 9.x requires net8.0+
+## Dependencies
+
+- Microsoft.Extensions.Logging.Abstractions
+
+## Links
+
+- [NuGet](https://www.nuget.org/profiles/sunamo)
+- [GitHub](https://github.com/sunamo/PlatformIndependentNuGetPackages)
+- [Developer site](https://sunamo.cz)
+
+## License
+
+MIT

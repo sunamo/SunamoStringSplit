@@ -1,25 +1,36 @@
 # SunamoStringSplit
 
-Methods for splitting strings
+A .NET library providing comprehensive methods for splitting strings using various delimiters and strategies.
 
 ## Overview
 
-SunamoStringSplit is part of the Sunamo package ecosystem, providing modular, platform-independent utilities for .NET development.
+SunamoStringSplit is part of the Sunamo package ecosystem, providing modular, platform-independent string splitting utilities for .NET development.
 
-## Main Components
+## Key Features
 
-### Key Methods
+- Split strings by characters, strings, whitespace, or punctuation
+- Split with or without removing empty entries
+- Split into a specific number of parts (from start or end)
+- Split while keeping delimiters in the result
+- Split and filter by regex patterns
+- Split by character indexes
+- Split by letter count
 
-- `RemoveWhichHaveWhitespaceAtBothSides()`
-- `NullToStringOrDefault()`
-- `Split()`
-- `SplitAndKeepDelimiters()`
-- `SplitAndReturnRegexMatches()`
-- `SplitCharList()`
-- `SplitChar()`
-- `SplitNoneChar()`
-- `SplitNoneCharList()`
-- `SplitList()`
+## Main Methods
+
+- `Split()` - Split by string delimiters with various options
+- `SplitChar()` / `SplitCharList()` - Split by character delimiters
+- `SplitNone()` / `SplitNoneChar()` - Split without removing empty entries
+- `SplitByWhiteSpaces()` - Split by all Unicode whitespace characters
+- `SplitBySpaceAndPunctuationChars()` - Split by space and punctuation
+- `SplitByNewLines()` - Split by newline characters
+- `SplitAndKeepDelimiters()` - Split while preserving delimiters
+- `SplitAndReturnRegexMatches()` - Split and filter by regex
+- `SplitByIndex()` / `SplitByIndexes()` - Split at specific positions
+- `SplitByLetterCount()` - Split into equal-length segments
+- `SplitToParts()` - Split into a specific number of parts
+- `SplitToPartsFromEnd()` - Split into parts from the end
+- `SplitToIntList()` - Split and parse to integers
 
 ## Installation
 
@@ -27,25 +38,16 @@ SunamoStringSplit is part of the Sunamo package ecosystem, providing modular, pl
 dotnet add package SunamoStringSplit
 ```
 
+## Target Frameworks
+
+- .NET 10.0
+- .NET 9.0
+- .NET 8.0
+
 ## Dependencies
 
-- **SunamoChar** (v23.12.30.2)
-- **SunamoCollectionsGeneric** (v23.12.30.1)
-- **SunamoConsts** (v24.1.1.1)
-- **Microsoft.Extensions.Logging.Abstractions** (v9.0.3)
-
-## Package Information
-
-- **Package Name**: SunamoStringSplit
-- **Version**: 25.6.7.1
-- **Target Framework**: net9.0
-- **Category**: Platform-Independent NuGet Package
-- **Source Files**: 13
-
-## Related Packages
-
-This package is part of the Sunamo package ecosystem. For more information about related packages, visit the main repository.
+- Microsoft.Extensions.Logging.Abstractions
 
 ## License
 
-See the repository root for license information.
+MIT

@@ -1,36 +1,63 @@
 namespace SunamoStringSplit;
 
+/// <summary>
+/// Provides character-based string splitting methods.
+/// </summary>
 partial class SHSplit
 {
-    public static List<string> SplitCharList(string parametry, List<char> deli)
+    /// <summary>
+    /// Splits a string by a list of character delimiters, removing empty entries.
+    /// </summary>
+    /// <param name="text">The text to split.</param>
+    /// <param name="delimiters">The list of character delimiters.</param>
+    /// <returns>A list of substrings.</returns>
+    public static List<string> SplitCharList(string text, List<char> delimiters)
     {
-        return Split(StringSplitOptions.RemoveEmptyEntries, parametry.RemoveInvisibleChars(), deli.ConvertAll(d => d.ToString()).ToArray());
+        return Split(StringSplitOptions.RemoveEmptyEntries, text.RemoveInvisibleChars(), delimiters.ConvertAll(delimiter => delimiter.ToString()).ToArray());
     }
 
-    public static List<string> SplitChar(string parametry, params char[] deli)
+    /// <summary>
+    /// Splits a string by character delimiters, removing empty entries.
+    /// </summary>
+    /// <param name="text">The text to split.</param>
+    /// <param name="delimiters">The character delimiters to split by.</param>
+    /// <returns>A list of substrings.</returns>
+    public static List<string> SplitChar(string text, params char[] delimiters)
     {
-        return Split(StringSplitOptions.RemoveEmptyEntries, parametry.RemoveInvisibleChars(),
-            deli.ToList().ConvertAll(d => d.ToString()).ToArray());
+        return Split(StringSplitOptions.RemoveEmptyEntries, text.RemoveInvisibleChars(),
+            delimiters.ToList().ConvertAll(delimiter => delimiter.ToString()).ToArray());
     }
 
-    public static List<string> SplitNoneChar(string text, params char[] deli)
+    /// <summary>
+    /// Splits a string by character delimiters without removing empty entries.
+    /// </summary>
+    /// <param name="text">The text to split.</param>
+    /// <param name="delimiters">The character delimiters to split by.</param>
+    /// <returns>A list of substrings including empty entries.</returns>
+    public static List<string> SplitNoneChar(string text, params char[] delimiters)
     {
-        return SplitChar(StringSplitOptions.None, text.RemoveInvisibleChars(), deli);
+        return SplitChar(StringSplitOptions.None, text.RemoveInvisibleChars(), delimiters);
     }
 
-    public static List<string> SplitNoneCharList(string text, List<char> deli)
+    /// <summary>
+    /// Splits a string by a list of character delimiters without removing empty entries.
+    /// </summary>
+    /// <param name="text">The text to split.</param>
+    /// <param name="delimiters">The list of character delimiters.</param>
+    /// <returns>A list of substrings including empty entries.</returns>
+    public static List<string> SplitNoneCharList(string text, List<char> delimiters)
     {
-        var converted = deli.ConvertAll(d => d.ToString());
+        var converted = delimiters.ConvertAll(delimiter => delimiter.ToString());
         return Split(StringSplitOptions.None, text.RemoveInvisibleChars(), converted.ToArray());
     }
 
-    private static List<string> SplitChar(StringSplitOptions removeEmptyEntries, string parametry,
-        params char[] deli)
+    private static List<string> SplitChar(StringSplitOptions stringSplitOptions, string text,
+        params char[] delimiters)
     {
-        var temp = deli.ToList();
-        var sep = new string[temp.Count()];
-        for (var i = 0; i < sep.Length; i++) sep[i] = temp[i].ToString();
-        var result = parametry.RemoveInvisibleChars().Split(sep, removeEmptyEntries).ToList();
+        var charList = delimiters.ToList();
+        var separators = new string[charList.Count];
+        for (var i = 0; i < separators.Length; i++) separators[i] = charList[i].ToString();
+        var result = text.RemoveInvisibleChars().Split(separators, stringSplitOptions).ToList();
         return result;
     }
 }

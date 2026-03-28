@@ -1,160 +1,164 @@
 namespace SunamoStringSplit;
 
-// EN: Variable names have been checked and replaced with self-descriptive names
-// CZ: Názvy proměnných byly zkontrolovány a nahrazeny samopopisnými názvy
+/// <summary>
+/// Provides additional string splitting methods (partial class continuation).
+/// </summary>
 public partial class SHSplit
 {
-    public static void SplitToParts2(string df, string deli, ref string before, ref string after)
+    /// <summary>
+    /// Splits a string into exactly two parts by the specified delimiter.
+    /// </summary>
+    /// <param name="text">The text to split.</param>
+    /// <param name="delimiter">The delimiter to split by.</param>
+    /// <param name="before">The part before the first delimiter occurrence.</param>
+    /// <param name="after">The part after the first delimiter occurrence.</param>
+    public static void SplitToParts2(string text, string delimiter, ref string before, ref string after)
     {
-        var parameter = Split(df.RemoveInvisibleChars(), deli);
-        before = parameter[0];
-        after = parameter[1];
+        var parts = Split(text.RemoveInvisibleChars(), delimiter);
+        before = parts[0];
+        after = parts[1];
     }
 
     /// <summary>
-    ///     FUNGUJE ale může být pomalá, snaž se využívat co nejméně
-    ///     Pokud někde bude více delimiterů těsně za sebou, ve výsledku toto nebude, bude tam jen poslední delimiter value té řadě
-    ///     příklad z 1,.Par při delimiteru , a . bude 1.Par
+    /// Splits a string into a specific number of parts from the end.
+    /// Works but can be slow, try to use as little as possible.
+    /// If there are multiple consecutive delimiters, only the last one in the sequence is kept.
     /// </summary>
-    /// <param name = "what"></param>
-    /// <param name = "parts"></param>
-    /// <param name = "deli"></param>
-    public static List<string> SplitToPartsFromEnd(string what, int parts, params char[] deli)
+    /// <param name="text">The text to split.</param>
+    /// <param name="parts">The desired number of parts.</param>
+    /// <param name="delimiters">The character delimiters to split by.</param>
+    /// <returns>A list with the requested number of parts, split from the end.</returns>
+    public static List<string> SplitToPartsFromEnd(string text, int parts, params char[] delimiters)
     {
-        List<char> chs = null;
-        List<bool> bw = null;
-        List<int> delimitersIndexes = null;
-        SplitCustom(what, out chs, out bw, out delimitersIndexes, deli);
-        var vr = new List<string>(parts);
+        List<char> characters;
+        List<bool> isNotDelimiterFlags;
+        List<int> delimiterIndexes;
+        SplitCustom(text, out characters, out isNotDelimiterFlags, out delimiterIndexes, delimiters);
+        var reversedParts = new List<string>(parts);
         var stringBuilder = new StringBuilder();
-        for (var i = chs.Count - 1; i >= 0; i--)
-            if (!bw[i])
+        for (var i = characters.Count - 1; i >= 0; i--)
+            if (!isNotDelimiterFlags[i])
             {
-                while (i != 0 && !bw[i - 1])
+                while (i != 0 && !isNotDelimiterFlags[i - 1])
                     i--;
-                var data = stringBuilder.ToString();
+                var segment = stringBuilder.ToString();
                 stringBuilder.Clear();
-                if (data != "")
-                    vr.Add(data);
+                if (segment != "")
+                    reversedParts.Add(segment);
             }
             else
             {
-                stringBuilder.Insert(0, chs[i]);
-            //stringBuilder.Append(chs[i]);
+                stringBuilder.Insert(0, characters[i]);
             }
 
-        var d2 = stringBuilder.ToString();
+        var remainingText = stringBuilder.ToString();
         stringBuilder.Clear();
-        if (d2 != "")
-            vr.Add(d2);
-        var value = new List<string>(parts);
-        for (var i = 0; i < vr.Count; i++)
-            if (value.Count != parts)
+        if (remainingText != "")
+            reversedParts.Add(remainingText);
+        var result = new List<string>(parts);
+        for (var i = 0; i < reversedParts.Count; i++)
+            if (result.Count != parts)
             {
-                value.Insert(0, vr[i]);
+                result.Insert(0, reversedParts[i]);
             }
             else
             {
-                var ds = what[delimitersIndexes[i - 1]].ToString();
-                value[0] = vr[i] + ds + value[0];
+                var delimiterString = text[delimiterIndexes[i - 1]].ToString();
+                result[0] = reversedParts[i] + delimiterString + result[0];
             }
 
-        return value;
+        return result;
     }
 
     /// <summary>
-    ///     TODO: Zatím NEfunguje 100%ně, až někdy budeš mít chuť tak se můžeš pokusit tuto metodu opravit. Zatím ji
-    ///     nepoužívej, místo ní používej pomalejší ale funkční SplitToPartsFromEnd
-    ///     Vrátí null value případě že řetězec bude prázdný
-    ///     Pokud bude mít A1 méně částí než A2, vratí nenalezené části jako SE
+    /// Alternative implementation of splitting a string into parts from the end.
+    /// Currently does not work 100% correctly. Use SplitToPartsFromEnd instead.
+    /// Returns null if the string is empty.
+    /// If fewer parts than requested, pads with empty strings.
     /// </summary>
-    /// <param name = "what"></param>
-    /// <param name = "parts"></param>
-    /// <param name = "deli"></param>
-    public static List<string> SplitToPartsFromEnd2(string what, int parts, params char[] deli)
+    /// <param name="text">The text to split.</param>
+    /// <param name="parts">The desired number of parts.</param>
+    /// <param name="delimiters">The character delimiters to split by.</param>
+    /// <returns>A list with the requested number of parts, or null if empty.</returns>
+    public static List<string>? SplitToPartsFromEnd2(string text, int parts, params char[] delimiters)
     {
-        var indexyDelimiteru = new List<int>();
-        foreach (var item in deli)
-            indexyDelimiteru.AddRange(SH.ReturnOccurencesOfString(what, item.ToString()));
-        //indexyDelimiteru.OrderBy(data => data);
-        indexyDelimiteru.Sort();
-        var text = SplitChar(what, deli);
-        if (text.Count < parts)
+        var delimiterIndexes = new List<int>();
+        foreach (var item in delimiters)
+            delimiterIndexes.AddRange(SH.ReturnOccurencesOfString(text, item.ToString()));
+        delimiterIndexes.Sort();
+        var splitParts = SplitChar(text, delimiters);
+        if (splitParts.Count < parts)
         {
-            //throw new Exception("");
-            if (text.Count > 0)
+            if (splitParts.Count > 0)
             {
-                var vr2 = new List<string>();
+                var paddedResult = new List<string>();
                 for (var i = 0; i < parts; i++)
-                    if (i < text.Count)
-                        vr2.Add(text[i]);
+                    if (i < splitParts.Count)
+                        paddedResult.Add(splitParts[i]);
                     else
-                        vr2.Add("");
-                return vr2;
-            //return new List<string> { text[0] };
+                        paddedResult.Add("");
+                return paddedResult;
             }
 
             return null;
         }
 
-        if (text.Count == parts)
-            return text;
-        var parts2 = text.Count - parts - 1;
-        //parts += povysit;
-        if (parts < text.Count - 1)
+        if (splitParts.Count == parts)
+            return splitParts;
+        var excessParts = splitParts.Count - parts - 1;
+        if (parts < splitParts.Count - 1)
             parts++;
-        var vr = new List<string>(parts);
-        // Tady musí být 4 menší než 1, protože po 1. iteraci to bude 3,pak 2, pak 1
-        for (; parts > parts2; parts--)
-            vr.Insert(0, text[parts]);
+        var result = new List<string>(parts);
+        for (; parts > excessParts; parts--)
+            result.Insert(0, splitParts[parts]);
         parts++;
         for (var i = 1; i < parts; i++)
-            vr[0] = text[i] + what[indexyDelimiteru[i]] + vr[0];
-        //}
-        vr[0] = text[0] + what[indexyDelimiteru[0]] + vr[0];
-        return vr;
+            result[0] = splitParts[i] + text[delimiterIndexes[i]] + result[0];
+        result[0] = splitParts[0] + text[delimiterIndexes[0]] + result[0];
+        return result;
     }
 
-    private static bool IsEndOfSentence(int dxDot, string s1, out string delimitingChars)
+    private static bool IsEndOfSentence(int dotIndex, string text, out string? delimitingChars)
     {
         delimitingChars = null;
-        var text = s1.Substring(dxDot);
-        var c0 = text[0];
-        char c1, c2;
-        c1 = '@';
-        c2 = '@';
-        if (text.Length > 1)
+        var isEndOfSentence = false;
+        var substring = text.Substring(dotIndex);
+        var firstChar = substring[0];
+        char secondChar, thirdChar;
+        secondChar = '@';
+        thirdChar = '@';
+        if (substring.Length > 1)
         {
-            c1 = text[1];
+            secondChar = substring[1];
         }
         else
         {
-            delimitingChars = text.Substring(0);
-            Result = true;
+            delimitingChars = substring.Substring(0);
+            isEndOfSentence = true;
         }
 
-        if (text.Length > 2)
+        if (substring.Length > 2)
         {
-            c2 = text[2];
+            thirdChar = substring[2];
         }
         else
         {
-            delimitingChars = text.Substring(1);
-            Result = true;
+            delimitingChars = substring.Substring(1);
+            isEndOfSentence = true;
         }
 
-        if (c1 == ' ' && char.IsUpper(c2))
+        if (secondChar == ' ' && char.IsUpper(thirdChar))
         {
-            delimitingChars = string.Join(string.Empty, c0, c1, c2);
-            Result = true;
+            delimitingChars = string.Join(string.Empty, firstChar, secondChar, thirdChar);
+            isEndOfSentence = true;
         }
 
-        if (char.IsUpper(c1))
+        if (char.IsUpper(secondChar))
         {
-            delimitingChars = string.Join(string.Empty, c0, c1);
-            Result = true;
+            delimitingChars = string.Join(string.Empty, firstChar, secondChar);
+            isEndOfSentence = true;
         }
 
-        return Result;
+        return isEndOfSentence;
     }
 }
