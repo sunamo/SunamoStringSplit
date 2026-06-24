@@ -1,17 +1,7 @@
 namespace SunamoStringSplit;
 
-/// <summary>
-/// Provides additional string splitting methods (partial class continuation).
-/// </summary>
 public partial class SHSplit
 {
-    /// <summary>
-    /// Splits a string into exactly two parts by the specified delimiter.
-    /// </summary>
-    /// <param name="text">The text to split.</param>
-    /// <param name="delimiter">The delimiter to split by.</param>
-    /// <param name="before">The part before the first delimiter occurrence.</param>
-    /// <param name="after">The part after the first delimiter occurrence.</param>
     public static void SplitToParts2(string text, string delimiter, ref string before, ref string after)
     {
         var parts = Split(text.RemoveInvisibleChars(), delimiter);
@@ -19,21 +9,11 @@ public partial class SHSplit
         after = parts[1];
     }
 
-    /// <summary>
-    /// Splits a string into a specific number of parts from the end.
-    /// Works but can be slow, try to use as little as possible.
-    /// If there are multiple consecutive delimiters, only the last one in the sequence is kept.
-    /// </summary>
-    /// <param name="text">The text to split.</param>
-    /// <param name="parts">The desired number of parts.</param>
-    /// <param name="delimiters">The character delimiters to split by.</param>
-    /// <returns>A list with the requested number of parts, split from the end.</returns>
+    // Works but can be slow, try to use as little as possible.
+    // If there are multiple consecutive delimiters, only the last one in the sequence is kept.
     public static List<string> SplitToPartsFromEnd(string text, int parts, params char[] delimiters)
     {
-        List<char> characters;
-        List<bool> isNotDelimiterFlags;
-        List<int> delimiterIndexes;
-        SplitCustom(text, out characters, out isNotDelimiterFlags, out delimiterIndexes, delimiters);
+        SplitCustom(text, out List<char> characters, out List<bool> isNotDelimiterFlags, out List<int> delimiterIndexes, delimiters);
         var reversedParts = new List<string>(parts);
         var stringBuilder = new StringBuilder();
         for (var i = characters.Count - 1; i >= 0; i--)
@@ -70,16 +50,9 @@ public partial class SHSplit
         return result;
     }
 
-    /// <summary>
-    /// Alternative implementation of splitting a string into parts from the end.
-    /// Currently does not work 100% correctly. Use SplitToPartsFromEnd instead.
-    /// Returns null if the string is empty.
-    /// If fewer parts than requested, pads with empty strings.
-    /// </summary>
-    /// <param name="text">The text to split.</param>
-    /// <param name="parts">The desired number of parts.</param>
-    /// <param name="delimiters">The character delimiters to split by.</param>
-    /// <returns>A list with the requested number of parts, or null if empty.</returns>
+    // Currently does not work 100% correctly. Use SplitToPartsFromEnd instead.
+    // Returns null if the string is empty.
+    // If fewer parts than requested, pads with empty strings.
     public static List<string>? SplitToPartsFromEnd2(string text, int parts, params char[] delimiters)
     {
         var delimiterIndexes = new List<int>();
@@ -124,9 +97,8 @@ public partial class SHSplit
         var isEndOfSentence = false;
         var substring = text.Substring(dotIndex);
         var firstChar = substring[0];
-        char secondChar, thirdChar;
-        secondChar = '@';
-        thirdChar = '@';
+        char secondChar = '@';
+        char thirdChar = '@';
         if (substring.Length > 1)
         {
             secondChar = substring[1];
