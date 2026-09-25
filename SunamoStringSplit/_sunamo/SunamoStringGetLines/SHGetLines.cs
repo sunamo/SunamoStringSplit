@@ -1,15 +1,7 @@
 namespace SunamoStringSplit._sunamo.SunamoStringGetLines;
 
-/// <summary>
-/// Utility class for splitting strings into lines.
-/// </summary>
 internal class SHGetLines
 {
-    /// <summary>
-    /// Splits a string into individual lines, handling various newline formats.
-    /// </summary>
-    /// <param name="text">The text to split into lines.</param>
-    /// <returns>A list of individual lines.</returns>
     internal static List<string> GetLines(string text)
     {
         var parts = text.Split(new[] { "\r\n", "\n\r" }, StringSplitOptions.None).ToList();
