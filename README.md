@@ -1,5 +1,10 @@
 # SunamoStringSplit
 
+## Short description
+
+Knihovna s množstvím metod pro dělení řetězců podle různých oddělovačů a strategií. Součást sbírky pinp s testy a Runnerem.
+
+
 A .NET library providing comprehensive methods for splitting strings using various delimiters and strategies.
 
 ## Overview
