@@ -2,6 +2,14 @@ namespace SunamoStringSplit;
 
 public partial class SHSplit
 {
+    /// <summary>
+    /// Split custom.
+    /// </summary>
+    /// <param name="text">The text.</param>
+    /// <param name="characters">The characters.</param>
+    /// <param name="isNotDelimiterFlags">The is not delimiter flags.</param>
+    /// <param name="delimiterIndexes">The delimiter indexes.</param>
+    /// <param name="delimiters">The delimiters.</param>
     public static void SplitCustom(string text, out List<char> characters, out List<bool> isNotDelimiterFlags, out List<int> delimiterIndexes, params char[] delimiters)
     {
         characters = new List<char>(text.Length);
@@ -26,6 +34,11 @@ public partial class SHSplit
         delimiterIndexes.Reverse();
     }
 
+    /// <summary>
+    /// Split from replace many format.
+    /// </summary>
+    /// <param name="text">The text.</param>
+    /// <returns>The split from replace many format result.</returns>
     public static Tuple<string, string> SplitFromReplaceManyFormat(string text)
     {
         var replacementBuilder = new StringBuilder();
@@ -49,12 +62,23 @@ public partial class SHSplit
         return new Tuple<string, string>(searchBuilder.ToString(), replacementBuilder.ToString());
     }
 
+    /// <summary>
+    /// Split from replace many format list.
+    /// </summary>
+    /// <param name="text">The text.</param>
+    /// <returns>The split from replace many format list result.</returns>
     public static Tuple<List<string>, List<string>> SplitFromReplaceManyFormatList(string text)
     {
         var formatResult = SplitFromReplaceManyFormat(text);
         return new Tuple<List<string>, List<string>>(SHGetLines.GetLines(formatResult.Item1), SHGetLines.GetLines(formatResult.Item2));
     }
 
+    /// <summary>
+    /// Split paragraph to max chars.
+    /// </summary>
+    /// <param name="text">The text.</param>
+    /// <param name="maxChars">The max chars.</param>
+    /// <returns>The split paragraph to max chars result.</returns>
     public static string SplitParagraphToMaxChars(string text, int maxChars)
     {
         var parts = Split(text, Environment.NewLine);
@@ -133,6 +157,12 @@ public partial class SHSplit
         return stringBuilder.ToString();
     }
 
+    /// <summary>
+    /// Split to int list.
+    /// </summary>
+    /// <param name="text">The text.</param>
+    /// <param name="delimiters">The delimiters.</param>
+    /// <returns>The split to int list result.</returns>
     public static List<int> SplitToIntList(string text, params string[] delimiters)
     {
         var parts = Split(text.RemoveInvisibleChars(), delimiters);
@@ -142,6 +172,12 @@ public partial class SHSplit
         return result;
     }
 
+    /// <summary>
+    /// Split to int list none.
+    /// </summary>
+    /// <param name="text">The text.</param>
+    /// <param name="delimiters">The delimiters.</param>
+    /// <returns>The split to int list none result.</returns>
     public static List<int> SplitToIntListNone(string text, params string[] delimiters)
     {
         List<int> result;
@@ -161,6 +197,13 @@ public partial class SHSplit
         return result;
     }
 
+    /// <summary>
+    /// Split to parts.
+    /// </summary>
+    /// <param name="text">The text.</param>
+    /// <param name="parts">The parts.</param>
+    /// <param name="delimiter">The delimiter.</param>
+    /// <returns>The split to parts result.</returns>
     public static List<string>? SplitToParts(string text, int parts, string delimiter)
     {
         var splitParts = Split(text.RemoveInvisibleChars(), delimiter);

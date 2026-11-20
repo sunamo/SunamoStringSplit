@@ -2,6 +2,13 @@ namespace SunamoStringSplit;
 
 public partial class SHSplit
 {
+    /// <summary>
+    /// Split to parts 2.
+    /// </summary>
+    /// <param name="text">The text.</param>
+    /// <param name="delimiter">The delimiter.</param>
+    /// <param name="before">The before.</param>
+    /// <param name="after">The after.</param>
     public static void SplitToParts2(string text, string delimiter, ref string before, ref string after)
     {
         var parts = Split(text.RemoveInvisibleChars(), delimiter);
@@ -11,6 +18,13 @@ public partial class SHSplit
 
     // Works but can be slow, try to use as little as possible.
     // If there are multiple consecutive delimiters, only the last one in the sequence is kept.
+    /// <summary>
+    /// Split to parts from end.
+    /// </summary>
+    /// <param name="text">The text.</param>
+    /// <param name="parts">The parts.</param>
+    /// <param name="delimiters">The delimiters.</param>
+    /// <returns>The split to parts from end result.</returns>
     public static List<string> SplitToPartsFromEnd(string text, int parts, params char[] delimiters)
     {
         SplitCustom(text, out List<char> characters, out List<bool> isNotDelimiterFlags, out List<int> delimiterIndexes, delimiters);
@@ -53,6 +67,13 @@ public partial class SHSplit
     // Currently does not work 100% correctly. Use SplitToPartsFromEnd instead.
     // Returns null if the string is empty.
     // If fewer parts than requested, pads with empty strings.
+    /// <summary>
+    /// Split to parts from end 2.
+    /// </summary>
+    /// <param name="text">The text.</param>
+    /// <param name="parts">The parts.</param>
+    /// <param name="delimiters">The delimiters.</param>
+    /// <returns>The split to parts from end 2 result.</returns>
     public static List<string>? SplitToPartsFromEnd2(string text, int parts, params char[] delimiters)
     {
         var delimiterIndexes = new List<int>();
