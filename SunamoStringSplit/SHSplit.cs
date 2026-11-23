@@ -1,7 +1,13 @@
 namespace SunamoStringSplit;
 
+/// <summary>
+/// Represents the SH split type.
+/// </summary>
 public partial class SHSplit
 {
+    /// <summary>
+    /// The space and punctuation chars.
+    /// </summary>
     public static char[] SpaceAndPunctuationChars =
     {
         ' ',
@@ -59,6 +65,12 @@ public partial class SHSplit
         '˝'
     };
 
+    /// <summary>
+    /// Remove which have whitespace at both sides.
+    /// </summary>
+    /// <param name="text">The text.</param>
+    /// <param name="indexes">The indexes.</param>
+    /// <returns>The remove which have whitespace at both sides result.</returns>
     public static void RemoveWhichHaveWhitespaceAtBothSides(string text, List<int> indexes)
     {
         for (var i = indexes.Count - 1; i >= 0; i--)
@@ -66,6 +78,10 @@ public partial class SHSplit
                 indexes.RemoveAt(i);
     }
 
+    /// <summary>
+    /// Initializes a new instance of the split class.
+    /// </summary>
+    /// <param name="i">The i.</param>
     public static List<string> Split(StringSplitOptions stringSplitOptions, string text, params string[] delimiters)
     {
         if (delimiters == null || delimiters.Length == 0)
@@ -77,12 +93,22 @@ public partial class SHSplit
         return result;
     }
 
+    /// <summary>
+    /// Split and keep delimiters.
+    /// </summary>
+    /// <param name="text">The text.</param>
+    /// <param name="list">The list.</param>
+    /// <returns>The split and keep delimiters result.</returns>
     public static List<string> SplitAndKeepDelimiters(string text, List<string> list)
     {
         var result = Regex.Split(text.RemoveInvisibleChars(), @"(?<=[" + string.Join("", list) + "])");
         return result.ToList();
     }
 
+    /// <summary>
+    /// Split and return regex matches.
+    /// </summary>
+    /// <returns>The split and return regex matches result.</returns>
     public static List<string> SplitAndReturnRegexMatches(string text, Regex regex, params char[] delimiters)
     {
         var result = new List<string>();
@@ -93,12 +119,25 @@ public partial class SHSplit
         return result;
     }
 
+    /// <summary>
+    /// Split by index.
+    /// </summary>
+    /// <param name="text">The text.</param>
+    /// <param name="index">The index.</param>
+    /// <param name="before">The before.</param>
+    /// <param name="after">The after.</param>
+    /// <returns>The split by index result.</returns>
     public static void SplitByIndex(string text, int index, out string before, out string after)
     {
         before = text.Substring(0, index);
         after = text.Substring(index + 1);
     }
 
+    /// <summary>
+    /// Split by indexes.
+    /// </summary>
+    /// <param name="1">The 1.</param>
+    /// <returns>The split by indexes result.</returns>
     public static List<string> SplitByIndexes(string text, List<int> indexes)
     {
         var result = new List<string>(indexes.Count + 1);
@@ -117,6 +156,14 @@ public partial class SHSplit
         return result;
     }
 
+    /// <summary>
+    /// Split by last char to two parts.
+    /// </summary>
+    /// <param name="text">The text.</param>
+    /// <param name="before">The before.</param>
+    /// <param name="after">The after.</param>
+    /// <param name="delimiter">The delimiter.</param>
+    /// <returns>The split by last char to two parts result.</returns>
     public static void SplitByLastCharToTwoParts(string text, out string? before, out string? after, char delimiter)
     {
         var lastIndex = text.LastIndexOf(delimiter);
@@ -131,6 +178,12 @@ public partial class SHSplit
         }
     }
 
+    /// <summary>
+    /// Split by letter count.
+    /// </summary>
+    /// <param name="text">The text.</param>
+    /// <param name="count">The count.</param>
+    /// <returns>The split by letter count result.</returns>
     public static List<string> SplitByLetterCount(string text, int count)
     {
         text = text.RemoveInvisibleChars();
@@ -151,21 +204,43 @@ public partial class SHSplit
         return result;
     }
 
+    /// <summary>
+    /// Split by new lines.
+    /// </summary>
+    /// <param name="text">The text.</param>
+    /// <returns>The split by new lines result.</returns>
     public static List<string> SplitByNewLines(string text)
     {
         return Split(text, "\n", "\r");
     }
 
+    /// <summary>
+    /// Split by space and punctuation chars.
+    /// </summary>
+    /// <param name="text">The text.</param>
+    /// <param name=""\n"">The n.</param>
+    /// <param name=""\r"">The r.</param>
+    /// <returns>The split by space and punctuation chars result.</returns>
     public static List<string> SplitBySpaceAndPunctuationChars(string text)
     {
         return SplitChar(text.RemoveInvisibleChars(), SpaceAndPunctuationChars);
     }
 
+    /// <summary>
+    /// Split by space and punctuation chars and white spaces.
+    /// </summary>
+    /// <param name="text.RemoveInvisibleChars()">The text remove invisible chars.</param>
+    /// <param name="SpaceAndPunctuationChars">The space and punctuation chars.</param>
+    /// <returns>The split by space and punctuation chars and white spaces result.</returns>
     public static List<string> SplitBySpaceAndPunctuationCharsAndWhiteSpaces(string text)
     {
         throw new NotImplementedException();
     }
 
+    /// <summary>
+    /// Split by space and punctuation chars leave.
+    /// </summary>
+    /// <returns>The split by space and punctuation chars leave result.</returns>
     public static List<string> SplitBySpaceAndPunctuationCharsLeave(string text)
     {
         var result = new List<string>();
@@ -197,6 +272,12 @@ public partial class SHSplit
         return result;
     }
 
+    /// <summary>
+    /// Split by white spaces.
+    /// </summary>
+    /// <param name="text">The text.</param>
+    /// <param name="isRemovingEmpty">The is removing empty.</param>
+    /// <returns>The split by white spaces result.</returns>
     public static List<string> SplitByWhiteSpaces(string text, bool isRemovingEmpty = false)
     {
         WhitespaceCharService whitespaceCharService = new();

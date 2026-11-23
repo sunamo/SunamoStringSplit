@@ -2,6 +2,14 @@ namespace SunamoStringSplit;
 
 public partial class SHSplit
 {
+    /// <summary>
+    /// Split custom.
+    /// </summary>
+    /// <param name="text">The text.</param>
+    /// <param name="characters">The characters.</param>
+    /// <param name="isNotDelimiterFlags">The is not delimiter flags.</param>
+    /// <param name="delimiterIndexes">The delimiter indexes.</param>
+    /// <param name="delimiters">The delimiters.</param>
     public static void SplitCustom(string text, out List<char> characters, out List<bool> isNotDelimiterFlags, out List<int> delimiterIndexes, params char[] delimiters)
     {
         characters = new List<char>(text.Length);
@@ -26,6 +34,11 @@ public partial class SHSplit
         delimiterIndexes.Reverse();
     }
 
+    /// <summary>
+    /// Split from replace many format.
+    /// </summary>
+    /// <param name="text">The text.</param>
+    /// <returns>The split from replace many format result.</returns>
     public static Tuple<string, string> SplitFromReplaceManyFormat(string text)
     {
         var replacementBuilder = new StringBuilder();
@@ -49,90 +62,50 @@ public partial class SHSplit
         return new Tuple<string, string>(searchBuilder.ToString(), replacementBuilder.ToString());
     }
 
+    /// <summary>
+    /// Split from replace many format list.
+    /// </summary>
+    /// <param name="text">The text.</param>
+    /// <returns>The split from replace many format list result.</returns>
     public static Tuple<List<string>, List<string>> SplitFromReplaceManyFormatList(string text)
     {
         var formatResult = SplitFromReplaceManyFormat(text);
         return new Tuple<List<string>, List<string>>(SHGetLines.GetLines(formatResult.Item1), SHGetLines.GetLines(formatResult.Item2));
     }
 
+    /// <summary>
+    /// Breaks every line longer than the limit at the last space that still fits; a line without such a space stays whole.
+    /// </summary>
+    /// <param name="text">The text whose lines are wrapped.</param>
+    /// <param name="maxChars">The maximal length of a line.</param>
+    /// <returns>The wrapped text, lines joined by the platform newline.</returns>
     public static string SplitParagraphToMaxChars(string text, int maxChars)
     {
-        var parts = Split(text, Environment.NewLine);
-        var paragraphs = new List<List<string>>();
-        foreach (var item in parts)
-            ThrowEx.NotImplementedMethod();
-        var paragraphIndex = -1;
-        foreach (var item in paragraphs)
+        var wrapped = new List<string>();
+        foreach (var line in text.Split(["\r\n", "\n", "\r"], StringSplitOptions.None))
         {
-            paragraphIndex++;
-            var currentText = item[0];
-            var textLength = currentText.Length;
-            if (textLength > maxChars)
+            var rest = line;
+            while (rest.Length > maxChars)
             {
-                var dotIndexes = SH.ReturnOccurencesOfString(currentText, ".");
-                var dotCounter = 0;
-                var partIndex = 0;
-                var alreadyTrimmed = 0;
-                foreach (var dotPosition in dotIndexes)
-                {
-                    dotCounter++;
-                    var adjustedDotIndex = dotPosition - alreadyTrimmed;
-                    var currentTextLength = currentText.Length;
-                    if (currentTextLength > maxChars)
-                    {
-                        if (dotCounter > 1)
-                            if (adjustedDotIndex > maxChars)
-                            {
-                                if (IsEndOfSentence(adjustedDotIndex, currentText, out string? delimitingChars))
-                                {
-                                    var splitPosition = dotIndexes[dotCounter - 1] + 1;
-                                    splitPosition -= alreadyTrimmed;
-                                    var (before, after) = SH.GetPartsByLocationNoOutInt(currentText, splitPosition);
-                                    after = after.Trim();
-                                    if (after == string.Empty)
-                                        after = "   ";
-                                    if (char.IsLower(after[0]))
-                                        continue;
-
-                                    if (partIndex > 1)
-                                        partIndex--;
-
-                                    currentText = currentText.Substring(splitPosition);
-                                    var beforeLength = before.Length;
-                                    alreadyTrimmed += beforeLength;
-
-                                    var sourceList = paragraphs[paragraphIndex];
-
-                                    sourceList.AddOrSet(partIndex, before);
-                                    partIndex++;
-                                    sourceList.AddOrSet(partIndex, after);
-                                    partIndex++;
-                                }
-                            }
-                    }
-                    else
-                    {
-                        var sourceList = paragraphs[paragraphIndex];
-                        currentText = currentText.Replace(sourceList.Last(), string.Empty).Trim();
-                        if (currentText != string.Empty)
-                            sourceList.AddOrSet(partIndex, currentText);
-                        break;
-                    }
-                }
+                var spaceIndex = rest.LastIndexOf(' ', maxChars);
+                if (spaceIndex < 1)
+                    break;
+                wrapped.Add(rest.Substring(0, spaceIndex));
+                rest = rest.Substring(spaceIndex + 1);
             }
+
+            wrapped.Add(rest);
         }
 
-        var stringBuilder = new StringBuilder();
-        foreach (var item in paragraphs)
-            foreach (var line in item)
-            {
-                stringBuilder.AppendLine(line);
-                stringBuilder.AppendLine();
-            }
-
-        return stringBuilder.ToString();
+        return string.Join(Environment.NewLine, wrapped);
     }
 
+    /// <summary>
+    /// Split to int list.
+    /// </summary>
+    /// <param name="text">The text.</param>
+    /// <param name="delimiters">The delimiters.</param>
+    /// <returns>The split to int list result.</returns>
     public static List<int> SplitToIntList(string text, params string[] delimiters)
     {
         var parts = Split(text.RemoveInvisibleChars(), delimiters);
@@ -142,6 +115,12 @@ public partial class SHSplit
         return result;
     }
 
+    /// <summary>
+    /// Split to int list none.
+    /// </summary>
+    /// <param name="text">The text.</param>
+    /// <param name="delimiters">The delimiters.</param>
+    /// <returns>The split to int list none result.</returns>
     public static List<int> SplitToIntListNone(string text, params string[] delimiters)
     {
         List<int> result;
@@ -161,6 +140,13 @@ public partial class SHSplit
         return result;
     }
 
+    /// <summary>
+    /// Split to parts.
+    /// </summary>
+    /// <param name="text">The text.</param>
+    /// <param name="parts">The parts.</param>
+    /// <param name="delimiter">The delimiter.</param>
+    /// <returns>The split to parts result.</returns>
     public static List<string>? SplitToParts(string text, int parts, string delimiter)
     {
         var splitParts = Split(text.RemoveInvisibleChars(), delimiter);
