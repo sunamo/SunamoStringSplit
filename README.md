@@ -56,3 +56,19 @@ dotnet add package SunamoStringSplit
 ## License
 
 MIT
+
+<!-- sunamo:test-coverage:start -->
+## Test coverage
+
+| Metric | Value |
+|---|---|
+| Method | static |
+| Test projects | 1 |
+| Public types referenced by tests | 1/1 (100.0 %) |
+| Public methods referenced by tests | 10/30 (33.3 %) |
+| Line coverage | n/a |
+| Branch coverage | n/a |
+| Generated (UTC) | 2026-11-22 21:24 |
+
+<!-- sunamo:test-coverage:data {"package":"SunamoStringSplit","container":"pinp","testProjects":1,"publicTypes":1,"typesReferencedByTests":1,"publicMethods":30,"methodsReferencedByTests":10,"lineRate":null,"branchRate":null,"method":"static","generatedUtc":"2026-11-22 21:24"} -->
+<!-- sunamo:test-coverage:end -->

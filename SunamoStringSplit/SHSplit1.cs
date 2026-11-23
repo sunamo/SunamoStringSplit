@@ -74,87 +74,30 @@ public partial class SHSplit
     }
 
     /// <summary>
-    /// Split paragraph to max chars.
+    /// Breaks every line longer than the limit at the last space that still fits; a line without such a space stays whole.
     /// </summary>
-    /// <param name="text">The text.</param>
-    /// <param name="maxChars">The max chars.</param>
-    /// <returns>The split paragraph to max chars result.</returns>
+    /// <param name="text">The text whose lines are wrapped.</param>
+    /// <param name="maxChars">The maximal length of a line.</param>
+    /// <returns>The wrapped text, lines joined by the platform newline.</returns>
     public static string SplitParagraphToMaxChars(string text, int maxChars)
     {
-        var parts = Split(text, Environment.NewLine);
-        var paragraphs = new List<List<string>>();
-        foreach (var item in parts)
-            ThrowEx.NotImplementedMethod();
-        var paragraphIndex = -1;
-        foreach (var item in paragraphs)
+        var wrapped = new List<string>();
+        foreach (var line in text.Split(["\r\n", "\n", "\r"], StringSplitOptions.None))
         {
-            paragraphIndex++;
-            var currentText = item[0];
-            var textLength = currentText.Length;
-            if (textLength > maxChars)
+            var rest = line;
+            while (rest.Length > maxChars)
             {
-                var dotIndexes = SH.ReturnOccurencesOfString(currentText, ".");
-                var dotCounter = 0;
-                var partIndex = 0;
-                var alreadyTrimmed = 0;
-                foreach (var dotPosition in dotIndexes)
-                {
-                    dotCounter++;
-                    var adjustedDotIndex = dotPosition - alreadyTrimmed;
-                    var currentTextLength = currentText.Length;
-                    if (currentTextLength > maxChars)
-                    {
-                        if (dotCounter > 1)
-                            if (adjustedDotIndex > maxChars)
-                            {
-                                if (IsEndOfSentence(adjustedDotIndex, currentText, out string? delimitingChars))
-                                {
-                                    var splitPosition = dotIndexes[dotCounter - 1] + 1;
-                                    splitPosition -= alreadyTrimmed;
-                                    var (before, after) = SH.GetPartsByLocationNoOutInt(currentText, splitPosition);
-                                    after = after.Trim();
-                                    if (after == string.Empty)
-                                        after = "   ";
-                                    if (char.IsLower(after[0]))
-                                        continue;
-
-                                    if (partIndex > 1)
-                                        partIndex--;
-
-                                    currentText = currentText.Substring(splitPosition);
-                                    var beforeLength = before.Length;
-                                    alreadyTrimmed += beforeLength;
-
-                                    var sourceList = paragraphs[paragraphIndex];
-
-                                    sourceList.AddOrSet(partIndex, before);
-                                    partIndex++;
-                                    sourceList.AddOrSet(partIndex, after);
-                                    partIndex++;
-                                }
-                            }
-                    }
-                    else
-                    {
-                        var sourceList = paragraphs[paragraphIndex];
-                        currentText = currentText.Replace(sourceList.Last(), string.Empty).Trim();
-                        if (currentText != string.Empty)
-                            sourceList.AddOrSet(partIndex, currentText);
-                        break;
-                    }
-                }
+                var spaceIndex = rest.LastIndexOf(' ', maxChars);
+                if (spaceIndex < 1)
+                    break;
+                wrapped.Add(rest.Substring(0, spaceIndex));
+                rest = rest.Substring(spaceIndex + 1);
             }
+
+            wrapped.Add(rest);
         }
 
-        var stringBuilder = new StringBuilder();
-        foreach (var item in paragraphs)
-            foreach (var line in item)
-            {
-                stringBuilder.AppendLine(line);
-                stringBuilder.AppendLine();
-            }
-
-        return stringBuilder.ToString();
+        return string.Join(Environment.NewLine, wrapped);
     }
 
     /// <summary>
